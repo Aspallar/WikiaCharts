@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            background-color: darkslategrey;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wikia Graphs</h1>
+    <div id="mdw-cardsbycolor-chart"></div>
+    <input type="hidden" id="mdw-chartdata" value="Red:4|Green:2|Green:1|Red:1|White:1|Black:1"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        function mdw_getRawChartData() {
+            var data = [];
+            var source = document.getElementById("mdw-chartdata").value;
+            var colors = source.split("|");
+            colors.forEach(function (e) {
+                var entry = e.split(":");
+                data.push([entry[0], parseInt(entry[1])]);
+            });
+            data.sort(function (a, b) {
+                return a[0].localeCompare(b[0]);
+            });
+            return data;
+        }
+
+        function mdw_sumByColor(data) {
+            var sumdata = [];
+            sumdata.push(data[0]);
+            for (var k = 1; k < data.length; k++) {
+                var lastIndex = sumdata.length - 1;
+                if (data[k][0] === sumdata[lastIndex][0])
+                    sumdata[lastIndex][1] += data[k][1];
+                else
+                    sumdata.push(data[k]);
+            }
+            return sumdata;
+        }
+
+        function mdw_drawChart(chartData) {
+
+            var dataColors = {
+                Red: 'red',
+                Green: 'green',
+                Blue: 'blue',
+                White: 'white',
+                Black: 'black',
+                Multi: 'yellow',
+                Colorless: 'pink',
+                Generic: 'grey'
+            };
+
+            var sliceColors = [];
+            chartData.forEach(function (e) {
+                sliceColors.push(dataColors[e[0]]);
+            });
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Color');
+            data.addColumn('number', 'Number');
+            data.addRows(chartData);
+
+            var options = {
+                height: 200,
+                colors: sliceColors,
+                //pieSliceText: 'value',
+                pieSliceBorderColor: "black",
+                pieSliceTextStyle: {
+                    color: 'black',
+                    bold: true
+                },
+                chartArea: {
+                    width: '100%',
+                    height: '100%'
+                },
+                backgroundColor: {
+                    fill: 'transparent'
+                },
+                legend: {
+                    textStyle: {
+                        color: '#0ce3ac'
+                    }
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('mdw-cardsbycolor-chart'));
+            chart.draw(data, options);
+        }
+
+        function mdw_googleChartsLoaded() {
+            var data = mdw_getRawChartData();
+            var sumdata = mdw_sumByColor(data);
+            mdw_drawChart(sumdata);
+        }
+
+        if (document.getElementById("mdw-chartdata") !== null) {
+            jQuery.getScript('https://www.gstatic.com/charts/loader.js', function () {
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(mdw_googleChartsLoaded);
+            });
+        }
+    </script>
+</body>
+</html>
