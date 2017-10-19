@@ -241,10 +241,8 @@ local function WriteCardData(list)
 		local card = p.SingleCardNonSensitive(name)
 		if card then
 			if card.Playable then
-				if not TableContains(card.Types,"Land") then
-					local carddata={ num=num; colors=card.Colors; cmc=card.cmc; }
-					table.insert(outcards, carddata)
-				end
+				local carddata={ num=num; colors=card.Colors; cmc=card.cmc; }
+				table.insert(outcards, carddata)
 			end
 		end
 	end
