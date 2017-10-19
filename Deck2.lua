@@ -241,7 +241,7 @@ local function WriteCardData(list)
 		local card = p.SingleCardNonSensitive(name)
 		if card then
 			if card.Playable then
-				local carddata={ num=num; colors=card.Colors; cmc=card.cmc; }
+                local carddata={ num=num; colors=card.Colors; cmc=card.cmc; types=card.Types}
 				table.insert(outcards, carddata)
 			end
 		end
