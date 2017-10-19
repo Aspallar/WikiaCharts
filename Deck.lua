@@ -225,7 +225,7 @@ local function WriteTypeLists()
 end
 
 local function WriteCardData(list)
-    WriteLine("<div style='display:block;' id='chartdata'>");
+	Write("<div id='mdw-chartdata' style='display:none' data-chart='");
     for _,t in pairs(list) do
         local split = mw.text.split(t," ")
         local num, name = table.remove(split,1), table.concat(split," ")
@@ -233,12 +233,21 @@ local function WriteCardData(list)
             num = 0
         end
         local card = p.SingleCardNonSensitive(name)
-        if card then
-            Write(num..card.Name.."|")
+		if card then
+			if card.Playable then
+				if not TableContains(card.Types,"Land") then
+					if card.Colors == nil then
+						Write("Generic:"..num.."!")
+					elseif #card.Colors > 1 then
+						Write("Multi:"..num.."!")
+					else
+						Write(card.Colors[1]..num.."!")
+					end
+				end
+			end
         end
     end
-    WriteLine("")
-    WriteLine("</div>")
+	WriteLine("'></div>");
 end
 
  

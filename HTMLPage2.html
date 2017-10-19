@@ -13,8 +13,7 @@
 <body>
     <h1>Wikia Graphs</h1>
     <div id="mdw-cardsbycolor-chart"></div>
-    <div id="mdw-chartdata" style="display:none" data-chart="Red:3!Green:2!Red:1!"></div>
-
+    <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:6},&#123;&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:8}]"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous">
@@ -22,7 +21,7 @@
     <script>
         function mdw_getDataString() {
             var dataString = document.getElementById("mdw-chartdata").getAttribute("data-chart");
-            return dataString.slice(0, -1);
+            return JSON.parse(dataString);
         }
 
         function mdw_getRawChartData(dataString) {
@@ -103,9 +102,10 @@
         }
 
         function mdw_googleChartsLoaded() {
-            var data = mdw_getRawChartData(mdw_getDataString());
-            var sumdata = mdw_sumByColor(data);
-            mdw_drawChart(sumdata);
+            var test = mdw_getDataString();
+            //var data = mdw_getRawChartData(mdw_getDataString());
+            //var sumdata = mdw_sumByColor(data);
+            //mdw_drawChart(sumdata);
         }
 
         if (document.getElementById("mdw-chartdata") !== null) {

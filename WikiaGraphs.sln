@@ -5,8 +5,12 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D0DBE08-C3DE-4224-97FE-AC9A55931405}"
 	ProjectSection(SolutionItems) = preProject
+		CardData.txt = CardData.txt
 		Deck.lua = Deck.lua
+		Deck2.lua = Deck2.lua
 		HTMLPage1.html = HTMLPage1.html
+		HTMLPage2.html = HTMLPage2.html
+		Try1.lua = Try1.lua
 	EndProjectSection
 EndProject
 Global
