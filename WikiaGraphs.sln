@@ -10,6 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Deck2.lua = Deck2.lua
 		HTMLPage1.html = HTMLPage1.html
 		HTMLPage2.html = HTMLPage2.html
+		HTMLPage3.html = HTMLPage3.html
+		HTMLPage4.html = HTMLPage4.html
+		Plotly.html = Plotly.html
 		Try1.lua = Try1.lua
 	EndProjectSection
 EndProject

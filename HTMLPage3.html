@@ -7,7 +7,6 @@
     <style>
         body {
             background-color: #fbf6ec;
-
         }
     </style>
 </head>
@@ -36,19 +35,21 @@
         })();
 
         function drawTestChart() {
+            var stroke = "stroke-color: #000000;"
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
-               ['Year', 'Asia', 'Europe', { role: 'annotation' }],
-               ['2012', 900, 390, 'one'],
-               ['2013', 1000, 400, 'two'],
-               ['2014', 1170, null, ''],
-               ['2015', 500, 0, ''],
-               ['2016', null, 540, '']
+               ['Year', 'Asia', { role: 'style' }, 'Europe', { role: 'style' }],
+               ['2012', 900, stroke, 390, stroke],
+               ['2013', 1000, stroke, 400, stroke],
+               ['2014', 1170, stroke, null, stroke],
+               ['2015', 500, stroke, 0, stroke],
+               ['2016', null, stroke, 540, stroke]
             ]);
 
             var options = {
                 title: 'Population (in millions)',
-                isStacked: true
+                isStacked: true,
+                colors: ['red','white'],
             };
 
             // Instantiate and draw the chart.
@@ -306,6 +307,10 @@
                         width: '100%',
                         height: '80%'
                     },
+                    stroke: {
+                        color: 'black',
+                        width: 2
+                    },
                     colors: sectionColors,
                 };
 
@@ -326,16 +331,17 @@
             }
 
             function chartLibraryLoaded() {
-                var chartData = getChartData();
-                if (hasColorPieChart())
-                    colorPieChart(chartData);
-                if (hasManaCurveChart())
-                    manaCurveChart(chartData);
+                drawTestChart();
+                //var chartData = getChartData();
+                //if (hasColorPieChart())
+                //    colorPieChart(chartData);
+                //if (hasManaCurveChart())
+                //    manaCurveChart(chartData);
             }
 
             // do nothing for a page with no charts
             if (!hasCharts())
-                return; 
+                return;
 
             jQuery.getScript('https://www.gstatic.com/charts/loader.js', function () {
                 google.charts.load('current', { 'packages': ['corechart'] });
