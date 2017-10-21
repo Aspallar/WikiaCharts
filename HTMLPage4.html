@@ -243,14 +243,14 @@
                 var numColumns = labels.length;
 
                 var data = [labels];
-                for (var k = 0; k < 9; k++) {
+                for (var k = 0; k < 7; k++) {
                     var dataline = new Array(numColumns);
                     dataline[0] = k.toString();
                     for (var k2 = 1; k2 < numColumns; k2++)
                         dataline[k2] = 0;
                     data.push(dataline);
                 }
-                data[9][0] = "8+";
+                data[7][0] = "6+";
 
                 var index = 1;
                 var color = chartData[0][colorIndex];
@@ -259,7 +259,7 @@
                         ++index;
                         color = row[colorIndex];
                     }
-                    var cmc = Math.min(row[cmcIndex], 8);
+                    var cmc = Math.min(row[cmcIndex], 6);
                     data[cmc + 1][index] += row[numIndex];
                 });
 
@@ -325,12 +325,19 @@
                 drawManaCurveChart(summedData);
             }
 
-            function chartLibraryLoaded() {
-                var chartData = getChartData();
+            function drawAllCharts(chartData) {
                 if (hasColorPieChart())
                     colorPieChart(chartData);
                 if (hasManaCurveChart())
                     manaCurveChart(chartData);
+            }
+
+            function chartLibraryLoaded() {
+                var chartData = getChartData();
+                drawAllCharts(chartData);
+                $(window).resize(function () {
+                    drawAllCharts(chartData);
+                });
             }
 
             // do nothing for a page with no charts
