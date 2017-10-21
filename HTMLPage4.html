@@ -58,15 +58,41 @@
         }
 
         // Start: graphs
-        (function () {
+        (function ($) {
+
+            function getChartColor(dataColor) {
+                var colors = {
+                    Red: '#f28f78',
+                    Green: '#7dcd98',
+                    Blue: '#92d4f7',
+                    White: '#ffffd9',
+                    Black: '#515151',
+                    Multicolored: '#ffd778',
+                    Colorless: '#abafb0',
+                };
+                return colors[dataColor];
+            }
 
             var chartDataId = "mdw-chartdata";
             var colorPieChartId = "mdw-cardsbycolor-chart";
             var manaCurveChartId = "mdw-manacurve-chart";
 
-            var colorIndex = 0;
-            var numIndex = 1;
-            var cmcIndex = 2;
+            var dataIndex = {
+                color: 0,
+                num: 1,
+                cmc: 2
+            }
+
+            var dataCache = {
+                colorPie: {
+                    data: null,
+                    colors: null
+                },
+                manaCurve: {
+                    data: null,
+                    colors: null
+                }
+            }
 
             function hasColorPieChart() {
                 return document.getElementById(colorPieChartId) !== null;
@@ -83,7 +109,7 @@
             }
 
             function isLand(card) {
-                return jQuery.inArray("Land", card.types) !== -1;
+                return $.inArray("Land", card.types) !== -1;
             }
 
             function adjustedColor(colors) {
@@ -116,7 +142,7 @@
                         colorData.push([card.adjustedColor, card.num]);
                 });
                 colorData.sort(function (a, b) {
-                    return a[colorIndex].localeCompare(b[colorIndex]);
+                    return a[dataIndex.color].localeCompare(b[dataIndex.color]);
                 });
                 return colorData;
             }
@@ -127,12 +153,13 @@
                     if (!card.isLand)
                         colorData.push([card.adjustedColor, card.num, card.cmc]);
                 });
+                // order by color then by cmc
                 colorData.sort(function (a, b) {
-                    var colorCompare = a[colorIndex].localeCompare(b[colorIndex]);
+                    var colorCompare = a[dataIndex.color].localeCompare(b[dataIndex.color]);
                     if (colorCompare != 0)
                         return colorCompare;
-                    var aCmc = a[cmcIndex];
-                    var bCmc = b[cmcIndex];
+                    var aCmc = a[dataIndex.cmc];
+                    var bCmc = b[dataIndex.cmc];
                     if (aCmc < bCmc)
                         return -1;
                     if (aCmc > bCmc)
@@ -149,8 +176,8 @@
                 summedData.push(data[0]);
                 for (var k = 1; k < data.length; k++) {
                     var lastIndex = summedData.length - 1;
-                    if (data[k][colorIndex] === summedData[lastIndex][colorIndex])
-                        summedData[lastIndex][numIndex] += data[k][numIndex];
+                    if (data[k][dataIndex.color] === summedData[lastIndex][dataIndex.color])
+                        summedData[lastIndex][dataIndex.num] += data[k][dataIndex.num];
                     else
                         summedData.push(data[k]);
                 }
@@ -164,8 +191,8 @@
                 summedData.push(data[0]);
                 for (var k = 1; k < data.length; k++) {
                     var lastIndex = summedData.length - 1;
-                    if (data[k][colorIndex] === summedData[lastIndex][colorIndex]
-                            && data[k][cmcIndex] === summedData[lastIndex][cmcIndex])
+                    if (data[k][dataIndex.color] === summedData[lastIndex][dataIndex.color]
+                            && data[k][dataIndex.cmc] === summedData[lastIndex][dataIndex.cmc])
                         summedData[lastIndex][1] += data[k][1];
                     else
                         summedData.push(data[k]);
@@ -173,45 +200,34 @@
                 return summedData;
             }
 
-            function getChartColor(dataColor) {
-                var colors = {
-                    Red: '#f28f78',
-                    Green: '#7dcd98',
-                    Blue: '#92d4f7',
-                    White: '#ffffd9',
-                    Black: '#515151',
-                    Multicolored: '#ffd778',
-                    Colorless: '#abafb0',
-                };
-                return colors[dataColor];
-            }
+            function cacheColorPieData(cardData) {
+                var rawData = getColorOnlyData(cardData);
+                var summedData = sumByColor(rawData);
 
-            function drawColorPieChart(chartData) {
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Color');
+                dataTable.addColumn('number', 'Number');
+                dataTable.addRows(summedData);
 
                 var sliceColors = [];
-                chartData.forEach(function (e) {
-                    sliceColors.push(getChartColor(e[0]));
+                summedData.forEach(function (e) {
+                    sliceColors.push(getChartColor(e[dataIndex.color]));
                 });
 
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Color');
-                data.addColumn('number', 'Number');
-                data.addRows(chartData);
+                dataCache.colorPie.data = dataTable;
+                dataCache.colorPie.colors = sliceColors;
+            }
 
+            function drawColorPieChart() {
                 var options = {
-                    // title: "Color Distribution",
                     height: 240,
-                    colors: sliceColors,
+                    colors: dataCache.colorPie.colors,
                     pieSliceText: 'value',
                     pieSliceBorderColor: "black",
                     pieSliceTextStyle: {
                         color: 'darkslategrey',
                         bold: true
                     },
-                    // chartArea: {
-                    //     width: '100%',
-                    //     height: '80%'
-                    // },
                     backgroundColor: {
                         fill: 'transparent'
                     },
@@ -221,18 +237,17 @@
                         }
                     },
                 };
-
                 var chart = new google.visualization.PieChart(document.getElementById(colorPieChartId));
-                chart.draw(data, options);
+                chart.draw(dataCache.colorPie.data, options);
             }
 
             function MakeLabelsForManaCurve(chartData) {
                 var labels = ['Cost'];
                 var k = 0;
                 while (k < chartData.length) {
-                    var color = chartData[k++][colorIndex];
+                    var color = chartData[k++][dataIndex.color];
                     labels.push(color);
-                    while (k < chartData.length && chartData[k][colorIndex] === color)
+                    while (k < chartData.length && chartData[k][dataIndex.color] === color)
                         ++k;
                 }
                 return labels;
@@ -253,14 +268,14 @@
                 data[7][0] = "6+";
 
                 var index = 1;
-                var color = chartData[0][colorIndex];
+                var color = chartData[0][dataIndex.color];
                 chartData.forEach(function (row) {
-                    if (color != row[colorIndex]) {
+                    if (color != row[dataIndex.color]) {
                         ++index;
-                        color = row[colorIndex];
+                        color = row[dataIndex.color];
                     }
-                    var cmc = Math.min(row[cmcIndex], 6);
-                    data[cmc + 1][index] += row[numIndex];
+                    var cmc = Math.min(row[dataIndex.cmc], 6);
+                    data[cmc + 1][index] += row[dataIndex.num];
                 });
 
                 for (var seriesIndex = 1; seriesIndex < data.length; seriesIndex++) {
@@ -274,19 +289,22 @@
                 return data;
             }
 
-
-            function drawManaCurveChart(chartData) {
-
-                var adjustedChartData = formatDataForManaCurveChart(chartData);
-                var data = google.visualization.arrayToDataTable(adjustedChartData);
+            function cacheManaCurveData(data) {
+                var rawData = getColorWithCostData(data);
+                var summedData = sumByColorAndCost(rawData);
+                var formattedData = formatDataForManaCurveChart(summedData);
 
                 var sectionColors = [];
-                for (var k = 1; k < adjustedChartData[0].length; k++)
-                    sectionColors.push(getChartColor(adjustedChartData[0][k]));
+                for (var k = 1; k < formattedData[0].length; k++)
+                    sectionColors.push(getChartColor(formattedData[0][k]));
 
+                dataCache.manaCurve.data = google.visualization.arrayToDataTable(formattedData);
+                dataCache.manaCurve.colors = sectionColors;
+            }
+
+
+            function drawManaCurveChart() {
                 var options = {
-                    //width: 600,
-                    //height: 400,
                     legend: {
                         position: 'top',
                         maxLines: 3
@@ -298,61 +316,39 @@
                     backgroundColor: {
                         fill: 'transparent'
                     },
-                    animation: {
-                        duration: 500,
-                        startup: true,
-                    },
-                    // chartArea: {
-                    //     width: '100%',
-                    //     height: '80%'
-                    // },
-                    colors: sectionColors,
+                    colors: dataCache.manaCurve.colors
                 };
-
                 var chart = new google.visualization.ColumnChart(document.getElementById(manaCurveChartId));
-                chart.draw(data, options);
+                chart.draw(dataCache.manaCurve.data, options);
             }
 
-            function colorPieChart(cardData) {
-                var rawData = getColorOnlyData(cardData);
-                var summedData = sumByColor(rawData);
-                drawColorPieChart(summedData);
-            }
 
-            function manaCurveChart(cardData) {
-                var rawData = getColorWithCostData(cardData);
-                var summedData = sumByColorAndCost(rawData);
-                drawManaCurveChart(summedData);
-            }
-
-            function drawAllCharts(chartData) {
+            function drawAllCharts() {
                 if (hasColorPieChart())
-                    colorPieChart(chartData);
+                    drawColorPieChart();
                 if (hasManaCurveChart())
-                    manaCurveChart(chartData);
+                    drawManaCurveChart();
             }
 
             function chartLibraryLoaded() {
                 var chartData = getChartData();
-                drawAllCharts(chartData);
-                $(window).resize(function () {
-                    drawAllCharts(chartData);
-                });
+                cacheColorPieData(chartData);
+                cacheManaCurveData(chartData);
+                drawAllCharts();
+                $(window).resize(drawAllCharts);
             }
 
             // do nothing for a page with no charts
             if (!hasCharts())
                 return;
 
-            jQuery.getScript('https://www.gstatic.com/charts/loader.js', function () {
+            $.getScript('https://www.gstatic.com/charts/loader.js', function () {
                 google.charts.load('current', { 'packages': ['corechart'] });
                 google.charts.setOnLoadCallback(chartLibraryLoaded);
             });
 
-        })();
+        })(jQuery);
         // End: graphs
-
-
 
     </script>
 </body>
