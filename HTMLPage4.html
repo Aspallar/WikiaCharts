@@ -12,12 +12,15 @@
 </head>
 <body>
     <h1>Wikia Graphs</h1>
+    <div id="mdw-types-chart"></div>
+    <hr />
     <div id="mdw-cardsbycolor-chart"></div>
     <hr />
     <div id="mdw-manacurve-chart"></div>
     <hr />
     <div id="test-chart"></div>
-    <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:8},&#123;&quot;num&quot;:7,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:9,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:2,&quot;cmc&quot;:3},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:13,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <div id="mdw-chartdata-1" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:8},&#123;&quot;num&quot;:7,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:9,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
     <hr />
     <textarea id="jsondata" cols="40" rows="30"></textarea>
 
@@ -73,14 +76,29 @@
                 return colors[dataColor];
             }
 
+            function getCardTypeColor(type) {
+                var colors = {
+                    Land: 'grey',
+                    Creature: 'grey',
+                    Artifact: 'grey',
+                    Enchantment: 'grey',
+                    Instant: 'grey',
+                    Sorcery: 'grey',
+                    Planeswalker: 'grey',
+                };
+                return colors[type];
+            }
+
             var chartDataId = "mdw-chartdata";
             var colorPieChartId = "mdw-cardsbycolor-chart";
             var manaCurveChartId = "mdw-manacurve-chart";
+            var typesPieChartId = "mdw-types-chart";
 
             var dataIndex = {
                 color: 0,
                 num: 1,
-                cmc: 2
+                cmc: 2,
+                type: 0
             }
 
             var dataCache = {
@@ -89,6 +107,10 @@
                     colors: null
                 },
                 manaCurve: {
+                    data: null,
+                    colors: null
+                },
+                typesPie: {
                     data: null,
                     colors: null
                 }
@@ -102,10 +124,16 @@
                 return document.getElementById(manaCurveChartId) !== null;
             }
 
+            function hasTypesPieChart() {
+                return document.getElementById(typesPieChartId) !== null;
+            }
+
             function hasCharts() {
                 if (document.getElementById(chartDataId) === null)
                     return false;
-                return hasColorPieChart() || hasManaCurveChart();
+                return hasColorPieChart()
+                    || hasManaCurveChart()
+                    || hasTypesPieChart();
             }
 
             function isLand(card) {
@@ -147,6 +175,34 @@
                 return colorData;
             }
 
+            function getCardTypeData(cardData) {
+                var typeData = [];
+                cardData.forEach(function (card) {
+                    card.types.forEach(function (type) {
+                        typeData.push([type, card.num]);
+                    });
+                });
+                typeData.sort(function (a, b) {
+                    return a[dataIndex.type].localeCompare(b[dataIndex.type]);
+                });
+                return typeData;
+            }
+
+            function sumByType(data) {
+                var summedData = [];
+                if (data.length === 0)
+                    return summedData;
+                summedData.push(data[0]);
+                for (var k = 1; k < data.length; k++) {
+                    var lastIndex = summedData.length - 1;
+                    if (data[k][dataIndex.type] === summedData[lastIndex][dataIndex.type])
+                        summedData[lastIndex][dataIndex.num] += data[k][dataIndex.num];
+                    else
+                        summedData.push(data[k]);
+                }
+                return summedData;
+            }
+            
             function getColorWithCostData(cardData) {
                 var colorData = [];
                 cardData.forEach(function (card) {
@@ -225,7 +281,7 @@
                     pieSliceText: 'value',
                     pieSliceBorderColor: "black",
                     pieSliceTextStyle: {
-                        color: 'darkslategrey',
+                        color: 'black',
                         bold: true
                     },
                     backgroundColor: {
@@ -302,7 +358,6 @@
                 dataCache.manaCurve.colors = sectionColors;
             }
 
-
             function drawManaCurveChart() {
                 var options = {
                     legend: {
@@ -322,18 +377,63 @@
                 chart.draw(dataCache.manaCurve.data, options);
             }
 
+            function cacheTypesPieData(cardData) {
+                var rawData = getCardTypeData(cardData);
+                var summedData = sumByType(rawData);
+
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Color');
+                dataTable.addColumn('number', 'Number');
+                dataTable.addRows(summedData);
+
+                var sliceColors = [];
+                summedData.forEach(function (e) {
+                    sliceColors.push(getCardTypeColor(e[dataIndex.type]));
+                });
+
+                dataCache.typesPie.data = dataTable;
+                dataCache.typesPie.colors = sliceColors;
+            }
+
+            function drawTypesPieChart() {
+                var options = {
+                    height: 340,
+                    colors: dataCache.typesPie.colors,
+                    pieSliceText: 'value',
+                    pieSliceBorderColor: "black",
+                    pieSliceTextStyle: {
+                        color: 'black',
+                        bold: true
+                    },
+                    backgroundColor: {
+                        fill: 'transparent'
+                    },
+                    legend: {
+                        textStyle: {
+                            color: 'black'
+                        },
+                        position: 'labeled'
+                    },
+                };
+                var chart = new google.visualization.PieChart(document.getElementById(typesPieChartId));
+                chart.draw(dataCache.typesPie.data, options);
+
+            }
 
             function drawAllCharts() {
                 if (hasColorPieChart())
                     drawColorPieChart();
                 if (hasManaCurveChart())
                     drawManaCurveChart();
+                if (hasTypesPieChart())
+                    drawTypesPieChart();
             }
 
             function chartLibraryLoaded() {
                 var chartData = getChartData();
                 cacheColorPieData(chartData);
                 cacheManaCurveData(chartData);
+                cacheTypesPieData(chartData);
                 drawAllCharts();
                 $(window).resize(drawAllCharts);
             }
