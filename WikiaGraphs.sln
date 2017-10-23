@@ -4,20 +4,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D0DBE08-C3DE-4224-97FE-AC9A55931405}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{414534C1-E5D1-44A3-8D7E-F555BC2A32FC}"
 	ProjectSection(SolutionItems) = preProject
-		CardData.txt = CardData.txt
-		Deck.lua = Deck.lua
-		Deck2.lua = Deck2.lua
-		HTMLPage1.html = HTMLPage1.html
-		HTMLPage2.html = HTMLPage2.html
-		HTMLPage3.html = HTMLPage3.html
-		HTMLPage4.html = HTMLPage4.html
-		Plotly.html = Plotly.html
-		Try1.lua = Try1.lua
+		Web\Charts.html = Web\Charts.html
+		Web\Plotly.html = Web\Plotly.html
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{FFA81AD7-121B-4549-9539-970554547085}"
+	ProjectSection(SolutionItems) = preProject
+		Web\Scripts\charts.js = Web\Scripts\charts.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{584ED3C2-EFB2-4E0F-987D-F7ABF14BA14C}"
+	ProjectSection(SolutionItems) = preProject
+		Modules\CardData.txt = Modules\CardData.txt
+		Modules\Deck.lua = Modules\Deck.lua
+		Modules\Experiments.lua = Modules\Experiments.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{4FC8D18A-C1D4-4B71-951C-5B8E51A00FB8}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FFA81AD7-121B-4549-9539-970554547085} = {414534C1-E5D1-44A3-8D7E-F555BC2A32FC}
 	EndGlobalSection
 EndGlobal

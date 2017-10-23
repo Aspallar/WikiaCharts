@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            background-color: #fbf6ec;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wikia Graphs</h1>
+    <div id="mdw-types-chart"></div>
+    <hr />
+    <div id="mdw-cardsbycolor-chart"></div>
+    <hr />
+    <div id="mdw-manacurve-chart"></div>
+    <hr />
+    <div id="test-chart"></div>
+    <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Green&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;,&quot;Creature&quot;],&quot;num&quot;:3,&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Green&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;White&quot;,&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Green&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Black&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Green&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Black&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:10},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:3,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <div id="mdw-chartdata-2" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:2,&quot;cmc&quot;:3},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:13,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <div id="mdw-chartdata-1" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:8},&#123;&quot;num&quot;:7,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:9,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <hr />
+    <textarea id="jsondata" cols="40" rows="30"></textarea>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script>
+
+        (function () {
+            var dataString = $("#mdw-chartdata").attr("data-chart");
+            var json = JSON.parse(dataString);
+            var jsonString = JSON.stringify(json, null, 4);
+            $("#jsondata").html(jsonString);
+        })();
+
+        function drawTestChart() {
+            var stroke = "stroke-color: #000000;"
+            // Define the chart to be drawn.
+            var data = google.visualization.arrayToDataTable([
+               ['Year', 'Asia', { role: 'style' }, 'Europe', { role: 'style' }],
+               ['2012', 900, stroke, 390, stroke],
+               ['2013', 1000, stroke, 400, stroke],
+               ['2014', 1170, stroke, null, stroke],
+               ['2015', 500, stroke, 0, stroke],
+               ['2016', null, stroke, 540, stroke]
+            ]);
+
+            var options = {
+                title: 'Population (in millions)',
+                isStacked: true,
+                colors: ['red','white'],
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById('test-chart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script src="scripts/charts.js"></script>
+</body>
+</html>
