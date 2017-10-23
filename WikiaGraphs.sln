@@ -24,6 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{584E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{4FC8D18A-C1D4-4B71-951C-5B8E51A00FB8}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\DeckCharts.html = Templates\DeckCharts.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
