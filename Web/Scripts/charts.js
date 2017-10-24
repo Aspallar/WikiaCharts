@@ -310,12 +310,6 @@
             backgroundColor: {
                 fill: 'transparent'
             },
-            vAxis: { ticks: [5,10,15,20] },
-            //vAxis: {
-            //    gridlines: {
-            //        count: 4
-            //    }
-            //},
             colors: dataCache.manaCurve.colors
         };
         var chart = new google.visualization.ColumnChart(document.getElementById(manaCurveChartId));
@@ -342,7 +336,7 @@
 
     function drawTypesPieChart() {
         var options = {
-            height: 340,
+            height: 240,
             colors: dataCache.typesPie.colors,
             pieSliceText: 'value',
             pieSliceBorderColor: "black",
@@ -388,9 +382,10 @@
         return;
 
     $.getScript('https://www.gstatic.com/charts/loader.js', function () {
-       google.charts.load('current', { 'packages': ['corechart'] });
-       google.charts.setOnLoadCallback(chartLibraryLoaded);
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(chartLibraryLoaded);
     });
 
 })(jQuery);
 // End: graphs
+
