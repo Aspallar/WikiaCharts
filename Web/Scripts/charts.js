@@ -256,33 +256,33 @@
         return labels;
     }
 
-    function formatDataForManaCurveChart(chartData, ticks) {
-        var lastCmc = 7; // one greater than the max cmc to show on chart
-
-        var labels = MakeLabelsForManaCurve(chartData);
-        var numColumns = labels.length;
-
-        var data = [labels];
-        for (var k = 0; k < lastCmc; k++) {
-            var dataSeries = zeroedArray(numColumns);
-            dataSeries[0] = k.toString();
+    function addZeroedDataSeriesForManaCurve(data, numSeries, seriesLength) {
+        var labelIndex = 0;
+        for (var k = 0; k < numSeries; k++) {
+            var dataSeries = zeroedArray(seriesLength);
+            dataSeries[labelIndex]= k.toString();
             data.push(dataSeries);
         }
-        data[lastCmc][0] += "+";
+        data[numSeries][labelIndex] += "+";
+    }
 
+    function fillDataForManaCurve(data, chartData) {
         var index = 1;
         var color = chartData[0][dataIndex.color];
-        chartData.forEach(function (row) {
-            if (color != row[dataIndex.color]) {
+        chartData.forEach(function (chartDataRow) {
+            if (color != chartDataRow[dataIndex.color]) {
                 ++index;
-                color = row[dataIndex.color];
+                color = chartDataRow[dataIndex.color];
             }
-            var cmc = Math.min(row[dataIndex.cmc], 6);
-            data[cmc + 1][index] += row[dataIndex.num];
+            var cmc = Math.min(chartDataRow[dataIndex.cmc], 6);
+            data[cmc + 1][index] += chartDataRow[dataIndex.num];
         });
+    }
 
-        var totals = zeroedArray(lastCmc);
-
+    
+    function nullZeroValuesInData(data, numSeries) {
+        // we do this to avoid any zero values appearing in chart as a single line
+        var totals = zeroedArray(numSeries);
         for (var seriesIndex = 1; seriesIndex < data.length; seriesIndex++) {
             var series = data[seriesIndex];
             for (var itemIndex = 1; itemIndex < series.length; itemIndex++) {
@@ -291,14 +291,25 @@
                     series[itemIndex] = null;
             }
         }
+        return Math.max.apply(null, totals);
+    }
 
-        var maxTotal = Math.max.apply(null, totals);
+    function GetManaCurveAxisTicks(ticks, maxColumnTotal) {
         var tick = 0;
         do {
             tick += 2;
             ticks.push(tick);
-        } while (tick < maxTotal);
+        } while (tick < maxColumnTotal);
+    }
 
+    function formatDataForManaCurveChart(chartData, ticks) {
+        var lastCmc = 7; // one greater than the max cmc to show on chart
+        var labels = MakeLabelsForManaCurve(chartData);
+        var data = [labels];
+        addZeroedDataSeriesForManaCurve(data, lastCmc, labels.length);
+        fillDataForManaCurve(data, chartData);
+        var maxColumnTotal = nullZeroValuesInData(data, lastCmc);
+        GetManaCurveAxisTicks(ticks, maxColumnTotal);
         return data;
     }
 
