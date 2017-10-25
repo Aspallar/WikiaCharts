@@ -9,8 +9,11 @@
 // ** and modify that, then copy your changes to the wikia.
 // ** this file is the charts.js file in the Web\scripts folder.
 // ** don't forget to push your changes to github.
+
 (function ($) {
-    "use strict";
+    /*globals google */
+    /*jshint curly: false */
+    'use strict';
 
     function getChartColor(dataColor) {
         var colors = {
@@ -20,7 +23,7 @@
             White: '#ffffd9',
             Black: '#515151',
             Multicolored: '#ffd778',
-            Colorless: '#abafb0',
+            Colorless: '#abafb0'
         };
         return colors[dataColor];
     }
@@ -33,22 +36,22 @@
             Enchantment: '696969',
             Instant: '808080',
             Sorcery: '#B0B0B0',
-            Planeswalker: '#C8C8C8',
+            Planeswalker: '#C8C8C8'
         };
         return colors[type];
     }
 
-    var chartDataId = "mdw-chartdata";
-    var colorPieChartId = "mdw-cardsbycolor-chart";
-    var manaCurveChartId = "mdw-manacurve-chart";
-    var typesPieChartId = "mdw-types-chart";
+    var chartDataId = 'mdw-chartdata';
+    var colorPieChartId = 'mdw-cardsbycolor-chart';
+    var manaCurveChartId = 'mdw-manacurve-chart';
+    var typesPieChartId = 'mdw-types-chart';
 
     var dataIndex = {
         color: 0,
         num: 1,
         cmc: 2,
         type: 0
-    }
+    };
 
     var dataCache = {
         colorPie: {
@@ -64,7 +67,7 @@
             data: null,
             colors: null
         }
-    }
+    };
 
     function drawManaCurveChart() {
         var options = {
@@ -94,7 +97,7 @@
             height: 240,
             colors: dataCache.colorPie.colors,
             pieSliceText: 'value',
-            pieSliceBorderColor: "black",
+            pieSliceBorderColor: 'black',
             pieSliceTextStyle: {
                 color: 'black',
                 bold: true
@@ -106,7 +109,7 @@
                 textStyle: {
                     color: 'black'
                 }
-            },
+            }
         };
         var chart = new google.visualization.PieChart(document.getElementById(colorPieChartId));
         chart.draw(dataCache.colorPie.data, options);
@@ -117,7 +120,7 @@
             height: 240,
             colors: dataCache.typesPie.colors,
             pieSliceText: 'value',
-            pieSliceBorderColor: "black",
+            pieSliceBorderColor: 'black',
             pieSliceTextStyle: {
                 color: 'black',
                 bold: true
@@ -130,7 +133,7 @@
                     color: 'black'
                 },
                 position: 'labeled'
-            },
+            }
         };
         var chart = new google.visualization.PieChart(document.getElementById(typesPieChartId));
         chart.draw(dataCache.typesPie.data, options);
@@ -159,20 +162,20 @@
     function hasCharts() {
         if (document.getElementById(chartDataId) === null)
             return false;
-        return hasColorPieChart()
-            || hasManaCurveChart()
-            || hasTypesPieChart();
+        return hasColorPieChart() ||
+            hasManaCurveChart() ||
+            hasTypesPieChart();
     }
 
     function isLand(card) {
-        return $.inArray("Land", card.types) !== -1;
+        return $.inArray('Land', card.types) !== -1;
     }
 
     function adjustedColor(colors) {
         if (colors === undefined || colors.length === 0)
-            return "Colorless";
+            return 'Colorless';
         if (colors.length > 1)
-            return "Multicolored";
+            return 'Multicolored';
         return colors[0];
     }
 
@@ -186,7 +189,7 @@
     }
 
     function getChartData() {
-        var dataString = document.getElementById(chartDataId).getAttribute("data-chart");
+        var dataString = document.getElementById(chartDataId).getAttribute('data-chart');
         var cardData = JSON.parse(dataString);
         return addCalculatedFieldsToData(cardData);
     }
@@ -240,7 +243,7 @@
         // order by color then by cmc
         colorData.sort(function (a, b) {
             var colorCompare = a[dataIndex.color].localeCompare(b[dataIndex.color]);
-            if (colorCompare != 0)
+            if (colorCompare !== 0)
                 return colorCompare;
             var aCmc = a[dataIndex.cmc];
             var bCmc = b[dataIndex.cmc];
@@ -275,8 +278,8 @@
         summedData.push(data[0]);
         for (var k = 1; k < data.length; k++) {
             var lastIndex = summedData.length - 1;
-            if (data[k][dataIndex.color] === summedData[lastIndex][dataIndex.color]
-                    && data[k][dataIndex.cmc] === summedData[lastIndex][dataIndex.cmc])
+            if (data[k][dataIndex.color] === summedData[lastIndex][dataIndex.color] &&
+                    data[k][dataIndex.cmc] === summedData[lastIndex][dataIndex.cmc])
                 summedData[lastIndex][1] += data[k][1];
             else
                 summedData.push(data[k]);
@@ -284,7 +287,7 @@
         return summedData;
     }
 
-    function MakeLabelsForManaCurve(chartData) {
+    function makeLabelsForManaCurve(chartData) {
         var labels = ['Cost'];
         var k = 0;
         while (k < chartData.length) {
@@ -300,17 +303,17 @@
         var labelIndex = 0;
         for (var k = 0; k < numSeries; k++) {
             var dataSeries = zeroedArray(seriesLength);
-            dataSeries[labelIndex]= k.toString();
+            dataSeries[labelIndex] = k.toString();
             data.push(dataSeries);
         }
-        data[numSeries][labelIndex] += "+";
+        data[numSeries][labelIndex] += '+';
     }
 
     function fillDataForManaCurve(data, chartData) {
         var index = 1;
         var color = chartData[0][dataIndex.color];
         chartData.forEach(function (chartDataRow) {
-            if (color != chartDataRow[dataIndex.color]) {
+            if (color !== chartDataRow[dataIndex.color]) {
                 ++index;
                 color = chartDataRow[dataIndex.color];
             }
@@ -333,7 +336,7 @@
         return Math.max.apply(null, totals);
     }
 
-    function GetManaCurveAxisTicks(ticks, maxColumnTotal) {
+    function getManaCurveAxisTicks(ticks, maxColumnTotal) {
         var tick = 0;
         do {
             tick += 2;
@@ -343,12 +346,12 @@
 
     function formatDataForManaCurveChart(chartData, ticks) {
         var lastCmc = 7; // one greater than the max cmc to show on chart
-        var labels = MakeLabelsForManaCurve(chartData);
+        var labels = makeLabelsForManaCurve(chartData);
         var data = [labels];
         addZeroedDataSeriesForManaCurve(data, lastCmc, labels.length);
         fillDataForManaCurve(data, chartData);
         var maxColumnTotal = nullZeroValuesInData(data, lastCmc);
-        GetManaCurveAxisTicks(ticks, maxColumnTotal);
+        getManaCurveAxisTicks(ticks, maxColumnTotal);
         return data;
     }
 
