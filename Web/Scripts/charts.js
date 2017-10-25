@@ -1,4 +1,14 @@
-// Start: graphs
+// ===============================================================================
+// Start: Deck Charts
+// Renders charts on deck articles
+// Version 1.0.0
+// Author: Aspallar
+//
+// ** Please dont edit this code directly in the wikia.
+// ** Instead clone the git repository https://github.com/Aspallar/WikiaCharts
+// ** and modify that, then copy your changes to the wikia.
+// ** this file is the charts.js file in the Web\scripts folder.
+// ** don't forget to push your changes to github.
 (function ($) {
     "use strict";
 
@@ -421,5 +431,5 @@
     });
 
 })(jQuery);
-// End: graphs
-
+// End: Deck Charts
+// ===============================================================================
