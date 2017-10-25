@@ -250,18 +250,20 @@
     }
 
     function formatDataForManaCurveChart(chartData, ticks) {
+        var lastCmc = 7; // one greater than the max cmc to show on chart
+
         var labels = MakeLabelsForManaCurve(chartData);
         var numColumns = labels.length;
 
         var data = [labels];
-        for (var k = 0; k < 7; k++) {
+        for (var k = 0; k < lastCmc; k++) {
             var dataline = new Array(numColumns);
             dataline[0] = k.toString();
             for (var k2 = 1; k2 < numColumns; k2++)
                 dataline[k2] = 0;
             data.push(dataline);
         }
-        data[7][0] = "6+";
+        data[lastCmc][0] += "+";
 
         var index = 1;
         var color = chartData[0][dataIndex.color];
@@ -275,7 +277,7 @@
         });
 
         var totals = [];
-        for (k = 0; k < 7; k++)
+        for (k = 0; k < lastCmc; k++)
             totals.push(0);
 
         for (var seriesIndex = 1; seriesIndex < data.length; seriesIndex++) {
