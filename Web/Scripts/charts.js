@@ -56,6 +56,13 @@
         }
     }
 
+    function zeroedArray(size) {
+        var arr = [];
+        for (var k = 0; k < size; k++)
+            arr.push(0);
+        return arr;
+    }
+
     function hasColorPieChart() {
         return document.getElementById(colorPieChartId) !== null;
     }
@@ -257,11 +264,9 @@
 
         var data = [labels];
         for (var k = 0; k < lastCmc; k++) {
-            var dataline = new Array(numColumns);
-            dataline[0] = k.toString();
-            for (var k2 = 1; k2 < numColumns; k2++)
-                dataline[k2] = 0;
-            data.push(dataline);
+            var dataSeries = zeroedArray(numColumns);
+            dataSeries[0] = k.toString();
+            data.push(dataSeries);
         }
         data[lastCmc][0] += "+";
 
@@ -276,9 +281,7 @@
             data[cmc + 1][index] += row[dataIndex.num];
         });
 
-        var totals = [];
-        for (k = 0; k < lastCmc; k++)
-            totals.push(0);
+        var totals = zeroedArray(lastCmc);
 
         for (var seriesIndex = 1; seriesIndex < data.length; seriesIndex++) {
             var series = data[seriesIndex];
