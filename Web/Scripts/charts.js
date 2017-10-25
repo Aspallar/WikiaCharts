@@ -33,8 +33,8 @@
             Land: '#FFFFFF',
             Creature: '#F5F5F5',
             Artifact: '#606060',
-            Enchantment: '696969',
-            Instant: '808080',
+            Enchantment: '#696969',
+            Instant: '#808080',
             Sorcery: '#B0B0B0',
             Planeswalker: '#C8C8C8'
         };
