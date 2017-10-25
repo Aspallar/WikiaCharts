@@ -376,7 +376,7 @@
 
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn('string', 'Color');
-        dataTable.addColumn('number', 'Number');
+        dataTable.addColumn('number', 'Amount');
         dataTable.addRows(summedData);
 
         var sliceColors = [];
@@ -393,8 +393,8 @@
         var summedData = sumByType(rawData);
 
         var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('string', 'Color');
-        dataTable.addColumn('number', 'Number');
+        dataTable.addColumn('string', 'Type');
+        dataTable.addColumn('number', 'Amount');
         dataTable.addRows(summedData);
 
         var sliceColors = [];
