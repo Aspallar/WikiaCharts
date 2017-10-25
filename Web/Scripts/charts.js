@@ -1,5 +1,6 @@
 // Start: graphs
 (function ($) {
+    "use strict";
 
     function getChartColor(dataColor) {
         var colors = {
@@ -46,7 +47,8 @@
         },
         manaCurve: {
             data: null,
-            colors: null
+            colors: null,
+            ticks: null
         },
         typesPie: {
             data: null,
@@ -247,7 +249,7 @@
         return labels;
     }
 
-    function formatDataForManaCurveChart(chartData) {
+    function formatDataForManaCurveChart(chartData, ticks) {
         var labels = MakeLabelsForManaCurve(chartData);
         var numColumns = labels.length;
 
@@ -272,13 +274,25 @@
             data[cmc + 1][index] += row[dataIndex.num];
         });
 
+        var totals = [];
+        for (k = 0; k < 7; k++)
+            totals.push(0);
+
         for (var seriesIndex = 1; seriesIndex < data.length; seriesIndex++) {
-            series = data[seriesIndex];
+            var series = data[seriesIndex];
             for (var itemIndex = 1; itemIndex < series.length; itemIndex++) {
+                totals[seriesIndex - 1] += series[itemIndex];
                 if (series[itemIndex] === 0)
                     series[itemIndex] = null;
             }
         }
+
+        var maxTotal = Math.max.apply(null, totals);
+        var tick = 0;
+        do {
+            tick += 2;
+            ticks.push(tick);
+        } while (tick < maxTotal);
 
         return data;
     }
@@ -286,7 +300,8 @@
     function cacheManaCurveData(data) {
         var rawData = getColorWithCostData(data);
         var summedData = sumByColorAndCost(rawData);
-        var formattedData = formatDataForManaCurveChart(summedData);
+        var ticks = [];
+        var formattedData = formatDataForManaCurveChart(summedData, ticks);
 
         var sectionColors = [];
         for (var k = 1; k < formattedData[0].length; k++)
@@ -294,6 +309,7 @@
 
         dataCache.manaCurve.data = google.visualization.arrayToDataTable(formattedData);
         dataCache.manaCurve.colors = sectionColors;
+        dataCache.manaCurve.ticks = ticks;
     }
 
     function drawManaCurveChart() {
@@ -309,6 +325,9 @@
             isStacked: true,
             backgroundColor: {
                 fill: 'transparent'
+            },
+            vAxis: {
+                ticks: dataCache.manaCurve.ticks
             },
             colors: dataCache.manaCurve.colors
         };
