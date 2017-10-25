@@ -56,6 +56,77 @@
         }
     }
 
+    function drawManaCurveChart() {
+        var options = {
+            height: 240,
+            legend: {
+                position: 'top',
+                maxLines: 3
+            },
+            bar: {
+                groupWidth: '80%'
+            },
+            isStacked: true,
+            backgroundColor: {
+                fill: 'transparent'
+            },
+            vAxis: {
+                ticks: dataCache.manaCurve.ticks
+            },
+            colors: dataCache.manaCurve.colors
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById(manaCurveChartId));
+        chart.draw(dataCache.manaCurve.data, options);
+    }
+
+    function drawColorPieChart() {
+        var options = {
+            height: 240,
+            colors: dataCache.colorPie.colors,
+            pieSliceText: 'value',
+            pieSliceBorderColor: "black",
+            pieSliceTextStyle: {
+                color: 'black',
+                bold: true
+            },
+            backgroundColor: {
+                fill: 'transparent'
+            },
+            legend: {
+                textStyle: {
+                    color: 'black'
+                }
+            },
+        };
+        var chart = new google.visualization.PieChart(document.getElementById(colorPieChartId));
+        chart.draw(dataCache.colorPie.data, options);
+    }
+
+    function drawTypesPieChart() {
+        var options = {
+            height: 240,
+            colors: dataCache.typesPie.colors,
+            pieSliceText: 'value',
+            pieSliceBorderColor: "black",
+            pieSliceTextStyle: {
+                color: 'black',
+                bold: true
+            },
+            backgroundColor: {
+                fill: 'transparent'
+            },
+            legend: {
+                textStyle: {
+                    color: 'black'
+                },
+                position: 'labeled'
+            },
+        };
+        var chart = new google.visualization.PieChart(document.getElementById(typesPieChartId));
+        chart.draw(dataCache.typesPie.data, options);
+    }
+
+
     function zeroedArray(size) {
         var arr = [];
         for (var k = 0; k < size; k++)
@@ -203,47 +274,6 @@
         return summedData;
     }
 
-    function cacheColorPieData(cardData) {
-        var rawData = getColorOnlyData(cardData);
-        var summedData = sumByColor(rawData);
-
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('string', 'Color');
-        dataTable.addColumn('number', 'Number');
-        dataTable.addRows(summedData);
-
-        var sliceColors = [];
-        summedData.forEach(function (e) {
-            sliceColors.push(getChartColor(e[dataIndex.color]));
-        });
-
-        dataCache.colorPie.data = dataTable;
-        dataCache.colorPie.colors = sliceColors;
-    }
-
-    function drawColorPieChart() {
-        var options = {
-            height: 240,
-            colors: dataCache.colorPie.colors,
-            pieSliceText: 'value',
-            pieSliceBorderColor: "black",
-            pieSliceTextStyle: {
-                color: 'black',
-                bold: true
-            },
-            backgroundColor: {
-                fill: 'transparent'
-            },
-            legend: {
-                textStyle: {
-                    color: 'black'
-                }
-            },
-        };
-        var chart = new google.visualization.PieChart(document.getElementById(colorPieChartId));
-        chart.draw(dataCache.colorPie.data, options);
-    }
-
     function MakeLabelsForManaCurve(chartData) {
         var labels = ['Cost'];
         var k = 0;
@@ -278,7 +308,6 @@
             data[cmc + 1][index] += chartDataRow[dataIndex.num];
         });
     }
-
     
     function nullZeroValuesInData(data, numSeries) {
         // we do this to avoid any zero values appearing in chart as a single line
@@ -328,27 +357,22 @@
         dataCache.manaCurve.ticks = ticks;
     }
 
-    function drawManaCurveChart() {
-        var options = {
-            height: 240,
-            legend: {
-                position: 'top',
-                maxLines: 3
-            },
-            bar: {
-                groupWidth: '80%'
-            },
-            isStacked: true,
-            backgroundColor: {
-                fill: 'transparent'
-            },
-            vAxis: {
-                ticks: dataCache.manaCurve.ticks
-            },
-            colors: dataCache.manaCurve.colors
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById(manaCurveChartId));
-        chart.draw(dataCache.manaCurve.data, options);
+    function cacheColorPieData(cardData) {
+        var rawData = getColorOnlyData(cardData);
+        var summedData = sumByColor(rawData);
+
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Color');
+        dataTable.addColumn('number', 'Number');
+        dataTable.addRows(summedData);
+
+        var sliceColors = [];
+        summedData.forEach(function (e) {
+            sliceColors.push(getChartColor(e[dataIndex.color]));
+        });
+
+        dataCache.colorPie.data = dataTable;
+        dataCache.colorPie.colors = sliceColors;
     }
 
     function cacheTypesPieData(cardData) {
@@ -367,31 +391,6 @@
 
         dataCache.typesPie.data = dataTable;
         dataCache.typesPie.colors = sliceColors;
-    }
-
-    function drawTypesPieChart() {
-        var options = {
-            height: 240,
-            colors: dataCache.typesPie.colors,
-            pieSliceText: 'value',
-            pieSliceBorderColor: "black",
-            pieSliceTextStyle: {
-                color: 'black',
-                bold: true
-            },
-            backgroundColor: {
-                fill: 'transparent'
-            },
-            legend: {
-                textStyle: {
-                    color: 'black'
-                },
-                position: 'labeled'
-            },
-        };
-        var chart = new google.visualization.PieChart(document.getElementById(typesPieChartId));
-        chart.draw(dataCache.typesPie.data, options);
-
     }
 
     function drawAllCharts() {
