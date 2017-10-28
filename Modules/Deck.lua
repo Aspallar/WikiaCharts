@@ -254,7 +254,6 @@ local function GenerateDeckFromList(name,list)
  
     SortListIntoTypes(list)
     WriteTypeLists()
-    -- WriteLine("This came from AspDeck")
     WriteCardData(list)
 
     return string.format(decklistTemplate,name,buffer)

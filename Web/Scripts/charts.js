@@ -321,7 +321,7 @@
             data[cmc + 1][index] += chartDataRow[dataIndex.num];
         });
     }
-    
+
     function nullZeroValuesInData(data, numSeries) {
         // we do this to avoid any zero values appearing in chart as a single line
         var totals = zeroedArray(numSeries);
