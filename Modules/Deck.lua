@@ -238,10 +238,8 @@ local function WriteCardData(list)
         end
         local card = p.SingleCardNonSensitive(name)
         if card then
-            if card.Playable then
-                local carddata={ num=intnum; colors=card.Colors; cmc=card.cmc; types=card.Types}
-                table.insert(outcards, carddata)
-            end
+            local carddata={ num=intnum; colors=card.Colors; cmc=card.cmc; types=card.Types}
+            table.insert(outcards, carddata)
         end
     end
     local cardJson = json.encode(outcards)
