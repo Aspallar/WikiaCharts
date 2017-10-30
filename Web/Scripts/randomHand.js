@@ -4,12 +4,31 @@
 
     var randomHandButtonId = 'mdw-random-hand-button';
     var randomHandResultsId = 'mdw-random-hand';
+    var imageSizeButtonId = 'mdw-random-hand-image-size';
 
     // do nothing on articles with no random hand
     if (document.getElementById(randomHandButtonId) === null ||
             document.getElementById(randomHandResultsId) === null) {
-        return; 
+        return;
     }
+
+    var cardImage = {
+        small: true,
+        fullWidth: 223,
+        fullHeight: 311,
+        width: Math.floor(223 * 0.5),
+        height: Math.floor(311 * 0.5),
+        scale: function (percent) {
+            if (percent === 100) {
+                this.width = this.fullWidth;
+                this.height = this.fullHeight;
+            } else {
+                var factor = percent / 100;
+                this.width = Math.floor(this.fullWidth * factor);
+                this.height = Math.floor(this.fullHeight * factor);
+            }
+        }
+    };
 
     var deck;
     var cardImageSources = {};
@@ -63,6 +82,32 @@
         }
     };
 
+    function setImageSizeButtonText() {
+        var text = cardImage.small ? 'Large Images' : 'Small Images';
+        $('#' + imageSizeButtonId)
+            .removeClass('mdw-hidden')
+            .html(text);
+    }
+
+    function setImageSizes() {
+        var images = $('#' + randomHandResultsId).find('img');
+        images.each(function () {
+            $(this)
+                .attr('width', cardImage.width)
+                .attr('height', cardImage.height);
+        });
+    }
+
+    function imageSizeButtonClick() {
+        cardImage.small = !cardImage.small;
+        if (cardImage.small)
+            cardImage.scale(50);
+        else
+            cardImage.scale(100);
+        setImageSizeButtonText();
+        setImageSizes();
+    }
+
     function setCardImage(img, card) {
         var imageSource = cardImageSources[card.name];
         if (imageSource !== undefined) {
@@ -82,7 +127,7 @@
     function renderRandomHand(target, hand) {
         var cardElements = document.createDocumentFragment();
         hand.forEach(function (card) {
-            var img = $('<img></img>').attr('width', 223).attr('height', 311);
+            var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
             cardElements.appendChild(img.get(0));
             setCardImage(img, card);
         });
@@ -98,12 +143,14 @@
         deck.shuffle();
         var hand = deck.drawCards(7);
         renderRandomHand(randomHandDiv, hand);
+        setImageSizeButtonText();
     }
 
     $(document).ready(function () {
         deck = new Deck();
         deck.scrapeFromPage();
         $('#' + randomHandButtonId).click(generateRandomHand);
+        $('#' + imageSizeButtonId).click(imageSizeButtonClick);
     });
 })(jQuery);
 

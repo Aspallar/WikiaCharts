@@ -1,4 +1,8 @@
-.mdw-divbutton {
+.mdw-hidden {
+    display: none !important; 
+}
+
+.mdw-button {
     padding: 2px 10px;
     border: solid #707070 1px;
     /*font-family: caption;*/
@@ -12,11 +16,11 @@
     background-image: -webkit-linear-gradient(bottom, #F2F2F2 0%, #CFCFCF 100%);
     background-image: -ms-linear-gradient(bottom, #F2F2F2 0%, #CFCFCF 100%);
     background-image: linear-gradient(to bottom, #F2F2F2 0%, #CFCFCF 100%);
-    cursor: default;
+    /*cursor: default;*/
     text-align: center;
 }
 
-.mdw-divbutton:hover {
+.mdw-button:hover {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EAF6FD), color-stop(1, #A7D8F5));
     background-image: -o-linear-gradient(bottom, #EAF6FD 0%, #A7D8F5 100%);
     background-image: -moz-linear-gradient(bottom, #EAF6FD 0%, #A7D8F5 100%);
@@ -27,7 +31,7 @@
     cursor: pointer;
 }
 
-.mdw-divbutton:active {
+.mdw-button:active {
     border: solid #2c628b 1px;
     padding: 2px 9px 2px 11px;
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E5F4FC),color-stop(0.5, #C4E5F6), color-stop(0.51, #98D0EF), color-stop(1, #68B3DB));
@@ -36,4 +40,15 @@
     background-image: -webkit-linear-gradient(bottom, #E5F4FC 0%, #C4E5F6 50%, #98D0EF 51%, #68B3DB 100%);
     background-image: -ms-linear-gradient(bottom, #E5F4FC 0%, #C4E5F6 50%, #98D0EF 51%, #68B3DB 100%);
     background-image: linear-gradient(to bottom, #E5F4FC 0%, #C4E5F6 50%, #98D0EF 51%, #68B3DB 100%);
+}
+
+.mdw-card-box {
+    margin: 0 10px 10px 10px;
+    border: solid 1px;
+    box-shadow: 0 0 10px #808080;
+    padding: 10px;
+    background-color: #F5F5F5;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
