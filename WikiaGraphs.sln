@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\AspDeck.html = Templates\AspDeck.html
 		Templates\DeckCharts.html = Templates\DeckCharts.html
 		Templates\NoChartsText.html = Templates\NoChartsText.html
+		Templates\RandomHand.html = Templates\RandomHand.html
 	EndProjectSection
 EndProject
 Global
