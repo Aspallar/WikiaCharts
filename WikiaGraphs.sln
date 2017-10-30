@@ -33,11 +33,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\RandomHand.html = Templates\RandomHand.html
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{4C31E5B2-C6F6-4755-9B9A-B4BC0BFCF763}"
+	ProjectSection(SolutionItems) = preProject
+		Web\css\Common.css = Web\css\Common.css
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FFA81AD7-121B-4549-9539-970554547085} = {414534C1-E5D1-44A3-8D7E-F555BC2A32FC}
+		{4C31E5B2-C6F6-4755-9B9A-B4BC0BFCF763} = {414534C1-E5D1-44A3-8D7E-F555BC2A32FC}
 	EndGlobalSection
 EndGlobal
