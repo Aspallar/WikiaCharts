@@ -9,11 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{414534C1-E5D
 	ProjectSection(SolutionItems) = preProject
 		Web\Charts.html = Web\Charts.html
 		Web\Plotly.html = Web\Plotly.html
+		Web\RandomHand.html = Web\RandomHand.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{FFA81AD7-121B-4549-9539-970554547085}"
 	ProjectSection(SolutionItems) = preProject
 		Web\Scripts\charts.js = Web\Scripts\charts.js
+		Web\Scripts\randomHand.js = Web\Scripts\randomHand.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{584ED3C2-EFB2-4E0F-987D-F7ABF14BA14C}"
