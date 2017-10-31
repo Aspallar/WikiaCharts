@@ -1,5 +1,25 @@
+// ==========================================================================
+// Start: Random Hand
+// Implements random hand generation for deck articles
+// Version 1.0.0
+// Author: Aspallar
+//
+// ** Please dont edit this code directly in the wikia.
+// ** Instead clone the git repository https://github.com/Aspallar/WikiaCharts
+// ** and modify that, then copy your changes to the wikia.
+// ** this file is the randomHand.js file in the Web\scripts folder.
+// ** don't forget to push your changes to github.
+//
+// NOTE TO FANDOM CODE REVIEWERS
+// This script inserts image tags into the page, but all of the images are internal to 
+// the wikia, no external images are used.
+// The only function that sets the src attribute of the img tags is setCardImage()
+// which sets the image source from a cache if its already known and if not makes an
+// ajax call to the MediaWiki API to parse a [[File:cardname.png|size=160px|link=]], and
+// extracts the src from the returned json.
 (function ($) {
     'use strict';
+    /*global alert*/
     /*jshint curly: false, maxlen: 200 */
 
     var randomHandButtonId = 'mdw-random-hand-button';
@@ -95,12 +115,28 @@
             .html(text);
     }
 
+    function setCardImageEvents(img) {
+        if (cardImage.small) {
+            img.mousemove(function (event) {
+                var left = event.pageX + 20;
+                var top = event.pageY - 240;
+                $('#mdw-card-hover').css({ top: top, left: left }).show();
+            }).mouseout(function () {
+                $('#mdw-card-hover').hide();
+            }).mouseenter(function () {
+                $('#mdw-card-hover').attr('src', $(this).attr('src'));
+            });
+        } else {
+            img.off('mousemove mouseout mouseenter');
+        }
+    }
+
     function setImageSizes() {
         var images = $('#' + randomHandResultsId).find('img');
         images.each(function () {
-            $(this)
-                .attr('width', cardImage.width)
-                .attr('height', cardImage.height);
+            var $this = $(this);
+            $this.attr('width', cardImage.width).attr('height', cardImage.height);
+            setCardImageEvents($this);
         });
     }
 
@@ -126,6 +162,12 @@
         setImageSizes();
     }
 
+    function createCard() {
+        var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
+        setCardImageEvents(img);
+        return img;
+    }
+
     function setCardImage(img, card) {
         var imageSource = cardImageSources[card.name];
         if (imageSource !== undefined) {
@@ -145,7 +187,7 @@
     function renderRandomHand(target, hand) {
         var cardElements = document.createDocumentFragment();
         hand.forEach(function (card) {
-            var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
+            var img = createCard();
             cardElements.appendChild(img.get(0));
             setCardImage(img, card);
         });
@@ -158,7 +200,7 @@
             return;
         }
         var card = deck.drawCard();
-        var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
+        var img = createCard();
         var images = $('#' + randomHandResultsId).prepend(img);
         setCardImage(img, card);
     }
@@ -181,13 +223,23 @@
         setImageSizeButtonText();
     }
 
-    $(document).ready(function () {
-        deck = new Deck();
-        deck.scrapeFromPage();
+    function wireButtonEvents() {
         $('#' + randomHandButtonId).click(generateRandomHand);
         $('#' + imageSizeButtonId).click(imageSizeButtonClick);
         $('#' + drawCardButtonId).click(drawCardClick);
         $('#' + clearButtonId).click(clearClick);
+    }
+
+    function insertHoverOverImage() {
+        $('body').prepend('<img id="mdw-card-hover" class="mdw-card-hover" />');
+    }
+
+    $(document).ready(function () {
+        deck = new Deck();
+        deck.scrapeFromPage();
+        insertHoverOverImage();
+        wireButtonEvents();
     });
 })(jQuery);
-
+// End: Random Hand
+// ==========================================================================

@@ -52,3 +52,11 @@
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
+
+.mdw-card-hover {
+    height: 311px;
+    width: 223px;
+    position: absolute;
+    display: none;
+    z-index: 1000;
+}
