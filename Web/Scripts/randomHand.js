@@ -5,6 +5,7 @@
     var randomHandButtonId = 'mdw-random-hand-button';
     var randomHandResultsId = 'mdw-random-hand';
     var imageSizeButtonId = 'mdw-random-hand-image-size';
+    var drawCardButtonId = "mdw-random-hand-draw-card";
 
     // do nothing on articles with no random hand
     if (document.getElementById(randomHandButtonId) === null ||
@@ -40,6 +41,7 @@
 
     function Deck() {
         this.cards = []; // array of DeckEntry
+        this.cardsLeft = 0;
     }
 
     Deck.prototype = {
@@ -48,6 +50,7 @@
             this.cards.forEach(function (card) {
                 card.available = true;
             });
+            this.cardsLeft = this.cards.length;
         },
         drawCard: function () {
             var card, index;
@@ -56,6 +59,7 @@
                 card = this.cards[index];
             } while (!card.available);
             card.available = false;
+            this.cardsLeft--;
             return card;
         },
         drawCards: function (numCards) {
@@ -79,6 +83,7 @@
                 }
             });
             this.cards = deck;
+            this.cardsLeft = deck.length;
         }
     };
 
@@ -96,6 +101,11 @@
                 .attr('width', cardImage.width)
                 .attr('height', cardImage.height);
         });
+    }
+
+    function showOtherButtons() {
+        $('#' + imageSizeButtonId).removeClass('mdw-hidden')
+        $('#' + drawCardButtonId).removeClass('mdw-hidden')
     }
 
     function imageSizeButtonClick() {
@@ -134,12 +144,24 @@
         target.html(cardElements);
     }
 
+    function drawCardClick() {
+        if (deck.cardsLeft === 0) {
+            alert('The deck is empty. There are no cards left to draw');
+            return;
+        }
+        var card = deck.drawCard();
+        var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
+        var images = $('#' + randomHandResultsId).prepend(img);
+        setCardImage(img, card);
+    }
+
     function generateRandomHand() {
         var randomHandDiv = $('#' + randomHandResultsId);
         if (deck.cards.length < 7) {
             randomHandDiv.html('<p>There must be at least seven cards in a deck for a random hand.</p>');
             return;
         }
+        showOtherButtons();
         deck.shuffle();
         var hand = deck.drawCards(7);
         renderRandomHand(randomHandDiv, hand);
@@ -151,6 +173,7 @@
         deck.scrapeFromPage();
         $('#' + randomHandButtonId).click(generateRandomHand);
         $('#' + imageSizeButtonId).click(imageSizeButtonClick);
+        $('#' + drawCardButtonId).click(drawCardClick);
     });
 })(jQuery);
 
