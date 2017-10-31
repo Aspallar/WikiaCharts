@@ -5,7 +5,8 @@
     var randomHandButtonId = 'mdw-random-hand-button';
     var randomHandResultsId = 'mdw-random-hand';
     var imageSizeButtonId = 'mdw-random-hand-image-size';
-    var drawCardButtonId = "mdw-random-hand-draw-card";
+    var drawCardButtonId = 'mdw-random-hand-draw-card';
+    var clearButtonId = 'mdw-random-hand-clear';
 
     // do nothing on articles with no random hand
     if (document.getElementById(randomHandButtonId) === null ||
@@ -103,9 +104,16 @@
         });
     }
 
-    function showOtherButtons() {
-        $('#' + imageSizeButtonId).removeClass('mdw-hidden')
-        $('#' + drawCardButtonId).removeClass('mdw-hidden')
+    function showOtherButtons(show) {
+        if (show) {
+            $('#' + imageSizeButtonId).removeClass('mdw-hidden');
+            $('#' + drawCardButtonId).removeClass('mdw-hidden');
+            $('#' + clearButtonId).removeClass('mdw-hidden');
+        } else {
+            $('#' + imageSizeButtonId).addClass('mdw-hidden');
+            $('#' + drawCardButtonId).addClass('mdw-hidden');
+            $('#' + clearButtonId).addClass('mdw-hidden');
+        }
     }
 
     function imageSizeButtonClick() {
@@ -155,13 +163,18 @@
         setCardImage(img, card);
     }
 
+    function clearClick() {
+        var images = $('#' + randomHandResultsId).html('');
+        showOtherButtons(false);
+    }
+
     function generateRandomHand() {
         var randomHandDiv = $('#' + randomHandResultsId);
         if (deck.cards.length < 7) {
             randomHandDiv.html('<p>There must be at least seven cards in a deck for a random hand.</p>');
             return;
         }
-        showOtherButtons();
+        showOtherButtons(true);
         deck.shuffle();
         var hand = deck.drawCards(7);
         renderRandomHand(randomHandDiv, hand);
@@ -174,6 +187,7 @@
         $('#' + randomHandButtonId).click(generateRandomHand);
         $('#' + imageSizeButtonId).click(imageSizeButtonClick);
         $('#' + drawCardButtonId).click(drawCardClick);
+        $('#' + clearButtonId).click(clearClick);
     });
 })(jQuery);
 
