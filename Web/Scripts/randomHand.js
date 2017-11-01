@@ -118,7 +118,9 @@
     function setCardImageEvents(img) {
         if (cardImage.small) {
             img.mousemove(function (event) {
-                var left = event.pageX + 20;
+                var spaceOnRight = window.innerWidth - event.pageX;
+                var xdelta = (spaceOnRight > cardImage.fullWidth + 5 ? 20 : -cardImage.fullWidth - 20);
+                var left = event.pageX + xdelta;
                 var top = event.pageY - 240;
                 $('#mdw-card-hover').css({ top: top, left: left }).show();
             }).mouseout(function () {
