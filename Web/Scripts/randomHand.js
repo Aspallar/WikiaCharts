@@ -87,9 +87,6 @@
             var cards = [];
             for (var k = 0; k < numCards; k++)
                 cards.push(this.drawCard());
-            cards.sort(function (a, b) {
-                return a.name.localeCompare(b.name);
-            });
             return cards;
         },
         scrapeFromPage: function () {
@@ -108,11 +105,14 @@
         }
     };
 
+    function setMainButtonText(haveHand) {
+        var text = haveHand ? 'New Hand' : 'Draw Sample Hand';
+        $('#' + randomHandButtonId).html(text);
+    }
+
     function setImageSizeButtonText() {
         var text = cardImage.small ? 'Large Images' : 'Small Images';
-        $('#' + imageSizeButtonId)
-            .removeClass('mdw-hidden')
-            .html(text);
+        $('#' + imageSizeButtonId).html(text);
     }
 
     function setCardImageEvents(img) {
@@ -133,7 +133,7 @@
         }
     }
 
-    function setImageSizes() {
+    function updateCardImages() {
         var images = $('#' + randomHandResultsId).find('img');
         images.each(function () {
             var $this = $(this);
@@ -156,12 +156,9 @@
 
     function imageSizeButtonClick() {
         cardImage.small = !cardImage.small;
-        if (cardImage.small)
-            cardImage.scale(50);
-        else
-            cardImage.scale(100);
+        cardImage.scale(cardImage.small ? 50 : 100);
         setImageSizeButtonText();
-        setImageSizes();
+        updateCardImages();
     }
 
     function createCard() {
@@ -210,6 +207,7 @@
     function clearClick() {
         var images = $('#' + randomHandResultsId).html('');
         showOtherButtons(false);
+        setMainButtonText(false);
     }
 
     function generateRandomHand() {
@@ -223,6 +221,7 @@
         var hand = deck.drawCards(7);
         renderRandomHand(randomHandDiv, hand);
         setImageSizeButtonText();
+        setMainButtonText(true);
     }
 
     function wireButtonEvents() {
@@ -240,6 +239,7 @@
         deck = new Deck();
         deck.scrapeFromPage();
         insertHoverOverImage();
+        setMainButtonText(false);
         wireButtonEvents();
     });
 })(jQuery);
