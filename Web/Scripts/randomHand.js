@@ -105,6 +105,11 @@
         }
     };
 
+    function cardArticle(cardName) {
+        var article = encodeURIComponent(cardName.replace(' ', '_')); 
+        return "/wiki/" + article;
+    }
+
     function setMainButtonText(haveHand) {
         var text = haveHand ? 'New Hand' : 'Draw Sample Hand';
         $('#' + randomHandButtonId).html(text);
@@ -161,24 +166,26 @@
         updateCardImages();
     }
 
-    function createCard() {
-        var img = $('<img></img>').attr('width', cardImage.width).attr('height', cardImage.height);
+    function createCard(cardName) {
+        var link = $('<a href="' + cardArticle(cardName) + '" target="_blank"><img /></a>');
+        var img = link.find('img').attr('width', cardImage.width).attr('height', cardImage.height);
         setCardImageEvents(img);
-        return img;
+        setCardImage(img, cardName);
+        return link;
     }
 
-    function setCardImage(img, card) {
-        var imageSource = cardImageSources[card.name];
+    function setCardImage(img, cardName) {
+        var imageSource = cardImageSources[cardName];
         if (imageSource !== undefined) {
             img.attr('src', imageSource);
             return;
         }
         var template = 'http://magicduels.wikia.com/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
-        var url = template.replace('[[cardname]]', encodeURIComponent(card.name));
+        var url = template.replace('[[cardname]]', encodeURIComponent(cardName));
         $.getJSON(url, function (data) {
             var text = data.parse.text['*'];
             var sourceMatch = /src\s*=\s*"([^"]+)"/.exec(text);  
-            cardImageSources[card.name] = sourceMatch[1];
+            cardImageSources[cardName] = sourceMatch[1];
             img.attr('src', sourceMatch[1]);
         });
     }
@@ -186,9 +193,8 @@
     function renderRandomHand(target, hand) {
         var cardElements = document.createDocumentFragment();
         hand.forEach(function (card) {
-            var img = createCard();
+            var img = createCard(card.name);
             cardElements.appendChild(img.get(0));
-            setCardImage(img, card);
         });
         target.html(cardElements);
     }
@@ -199,9 +205,8 @@
             return;
         }
         var card = deck.drawCard();
-        var img = createCard();
+        var img = createCard(card.name);
         var images = $('#' + randomHandResultsId).prepend(img);
-        setCardImage(img, card);
     }
 
     function clearClick() {
