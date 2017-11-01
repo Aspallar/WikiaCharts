@@ -10,10 +10,14 @@
 // ** this file is the randomHand.js file in the Web\scripts folder.
 // ** don't forget to push your changes to github.
 //
+// To develop this code locally you will need an addin for your browser that
+// disables cross origin checking, and change apiParseUrl() so that the correct
+// absolute url for the target wikia is used.
+//
 // NOTE TO FANDOM CODE REVIEWERS
 // This script inserts image tags into the page, but all of the images are internal to 
 // the wikia, no external images are used.
-// The only function that sets the src attribute of the img tags is setCardImage()
+// The only function that sets the src attribute of the img tags is setCardImageSource()
 // which sets the image source from a cache if its already known and if not makes an
 // ajax call to the MediaWiki API to parse a [[File:cardname.png|size=160px|link=]], and
 // extracts the src from the returned json.
@@ -107,7 +111,7 @@
 
     function cardArticle(cardName) {
         var article = encodeURIComponent(cardName.replace(' ', '_')); 
-        return "/wiki/" + article;
+        return '/wiki/' + article;
     }
 
     function setMainButtonText(haveHand) {
@@ -170,19 +174,28 @@
         var link = $('<a href="' + cardArticle(cardName) + '" target="_blank"><img /></a>');
         var img = link.find('img').attr('width', cardImage.width).attr('height', cardImage.height);
         setCardImageEvents(img);
-        setCardImage(img, cardName);
+        setCardImageSource(img, cardName);
         return link;
     }
 
-    function setCardImage(img, cardName) {
+    function apiParseUrl(cardName) {
+        var url = '/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
+        url = url.replace('[[cardname]]', encodeURIComponent(cardName));
+        if (location.protocol.lastIndexOf('http', 0) === -1) {
+            // working locally in development, use absolute url
+            url = 'http://magicduels.wikia.com' + url;
+        }
+        return url;
+    }
+
+    function setCardImageSource(img, cardName) {
         var imageSource = cardImageSources[cardName];
         if (imageSource !== undefined) {
             img.attr('src', imageSource);
             return;
         }
-        var template = 'http://magicduels.wikia.com/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
-        var url = template.replace('[[cardname]]', encodeURIComponent(cardName));
-        $.getJSON(url, function (data) {
+        var parseUrl = apiParseUrl(cardName);
+        $.getJSON(parseUrl, function (data) {
             var text = data.parse.text['*'];
             var sourceMatch = /src\s*=\s*"([^"]+)"/.exec(text);  
             cardImageSources[cardName] = sourceMatch[1];
