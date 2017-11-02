@@ -11,13 +11,13 @@
 // ** don't forget to push your changes to github.
 //
 // To develop this code locally you will need an addin for your browser that
-// disables cross origin checking, and change apiParseUrl() so that the correct
+// disables cross origin checking, and change apiParseCommandUrl() so that the correct
 // absolute url for the target wikia is used.
 //
 // NOTE TO FANDOM CODE REVIEWERS
 // This script inserts image tags into the page, but all of the images are internal to 
 // the wikia, no external images are used.
-// The only function that sets the src attribute of the img tags is setCardImageSource()
+// The only function that sets the src attribute of the img tags is ImageSource.setCardImageSource()
 // which sets the image source from a cache if its already known and if not makes an
 // ajax call to the MediaWiki API to parse a [[File:cardname.png|size=160px|link=]], and
 // extracts the src from the returned json.
@@ -26,38 +26,15 @@
     /*global alert*/
     /*jshint curly: false, maxlen: 200 */
 
-    var randomHandButtonId = 'mdw-random-hand-button';
-    var randomHandResultsId = 'mdw-random-hand';
-    var imageSizeButtonId = 'mdw-random-hand-image-size';
-    var drawCardButtonId = 'mdw-random-hand-draw-card';
-    var clearButtonId = 'mdw-random-hand-clear';
-
     // do nothing on articles with no random hand
-    if (document.getElementById(randomHandButtonId) === null ||
-            document.getElementById(randomHandResultsId) === null) {
+    if (document.getElementById('mdw-random-hand') === null) {
         return;
     }
 
-    var cardImage = {
-        small: true,
-        fullWidth: 223,
-        fullHeight: 311,
-        width: Math.floor(223 * 0.5),
-        height: Math.floor(311 * 0.5),
-        scale: function (percent) {
-            if (percent === 100) {
-                this.width = this.fullWidth;
-                this.height = this.fullHeight;
-            } else {
-                var factor = percent / 100;
-                this.width = Math.floor(this.fullWidth * factor);
-                this.height = Math.floor(this.fullHeight * factor);
-            }
-        }
-    };
-
-    var deck;
-    var cardImageSources = {};
+    function cardArticle(cardName) {
+        var article = encodeURIComponent(cardName.replace(' ', '_'));
+        return '/wiki/' + article;
+    }
 
     function DeckEntry(name) {
         this.name = name;
@@ -76,6 +53,7 @@
                 card.available = true;
             });
             this.cardsLeft = this.cards.length;
+            return this;
         },
         drawCard: function () {
             var card, index;
@@ -106,159 +84,208 @@
             });
             this.cards = deck;
             this.cardsLeft = deck.length;
+            return this;
         }
-    };
+    }; // End Deck
 
-    function cardArticle(cardName) {
-        var article = encodeURIComponent(cardName.replace(' ', '_')); 
-        return '/wiki/' + article;
-    }
+    function ImageSource() {
+        var sourceCache = {};
 
-    function setMainButtonText(haveHand) {
-        var text = haveHand ? 'New Hand' : 'Draw Sample Hand';
-        $('#' + randomHandButtonId).html(text);
-    }
+        function apiParseCommandUrl(cardName) {
+            var url = '/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
+            url = url.replace('[[cardname]]', encodeURIComponent(cardName));
+            if (location.protocol.lastIndexOf('http', 0) === -1) {
+                // working locally in development, use absolute url
+                url = 'http://magicduels.wikia.com' + url;
+            }
+            return url;
+        }
 
-    function setImageSizeButtonText() {
-        var text = cardImage.small ? 'Large Images' : 'Small Images';
-        $('#' + imageSizeButtonId).html(text);
-    }
+        return {
+            setCardImageSource: function (img, cardName) {
+                var imageSource = sourceCache[cardName];
+                if (imageSource !== undefined) {
+                    img.attr('src', imageSource);
+                    return;
+                }
+                var parseUrl = apiParseCommandUrl(cardName);
+                $.getJSON(parseUrl, function (data) {
+                    var text = data.parse.text['*'];
+                    var sourceMatch = /src\s*=\s*"([^"]+)"/.exec(text);
+                    sourceCache[cardName] = sourceMatch[1];
+                    img.attr('src', sourceMatch[1]);
+                });
+            }
+        };
+    } // End ImageSource
 
-    function setCardImageEvents(img) {
-        if (cardImage.small) {
-            img.mousemove(function (event) {
-                var spaceOnRight = window.innerWidth - event.pageX;
-                var xdelta = (spaceOnRight > cardImage.fullWidth + 5 ? 20 : -cardImage.fullWidth - 20);
-                var left = event.pageX + xdelta;
-                var top = event.pageY - 240;
-                $('#mdw-card-hover').css({ top: top, left: left }).show();
-            }).mouseout(function () {
-                $('#mdw-card-hover').hide();
-            }).mouseenter(function () {
-                $('#mdw-card-hover').attr('src', $(this).attr('src'));
+    function CardPanel(xContainer, xTtooltip, xImageSource) {
+        var container = xContainer;
+        var tooltip = xTtooltip;
+        var imageSource = xImageSource;
+
+        var cardSize = {
+            small: true,
+            fullWidth: 223,
+            fullHeight: 311,
+            width: Math.floor(223 * 0.5),
+            height: Math.floor(311 * 0.5),
+            scale: function (percent) {
+                var factor = percent / 100;
+                this.width = Math.floor(this.fullWidth * factor);
+                this.height = Math.floor(this.fullHeight * factor);
+            }
+        };
+
+        function setTooltip(img) {
+            if (cardSize.small) {
+                img.mousemove(function (event) {
+                    var spaceOnRight = window.innerWidth - event.pageX;
+                    var xdelta = spaceOnRight > cardSize.fullWidth + 5 ? 20 : -cardSize.fullWidth - 20;
+                    var left = event.pageX + xdelta;
+                    var top = event.pageY - 240;
+                    tooltip.css({ top: top, left: left }).show();
+                }).mouseout(function () {
+                    tooltip.hide();
+                }).mouseenter(function () {
+                    tooltip.attr('src', $(this).attr('src'));
+                });
+            } else {
+                img.off('mousemove mouseout mouseenter');
+            }
+        }
+
+        function createCard(cardName) {
+            var link = $('<a href="' + cardArticle(cardName) + '" target="_blank"><img /></a>');
+            var img = link.find('img').attr('width', cardSize.width).attr('height', cardSize.height);
+            setTooltip(img);
+            imageSource.setCardImageSource(img, cardName);
+            return link;
+        }
+
+        function update() {
+            var images = container.find('img');
+            images.each(function () {
+                var $this = $(this);
+                $this.attr('width', cardSize.width).attr('height', cardSize.height);
+                setTooltip($this);
             });
-        } else {
-            img.off('mousemove mouseout mouseenter');
         }
-    }
 
-    function updateCardImages() {
-        var images = $('#' + randomHandResultsId).find('img');
-        images.each(function () {
-            var $this = $(this);
-            $this.attr('width', cardImage.width).attr('height', cardImage.height);
-            setCardImageEvents($this);
-        });
-    }
+        return {
+            add: function (card) {
+                container.prepend(createCard(card.name));
+            },
+            addAll: function (cards) {
+                var cardElements = document.createDocumentFragment();
+                cards.forEach(function (card) {
+                    var img = createCard(card.name);
+                    cardElements.appendChild(img.get(0));
+                });
+                container.html(cardElements);
+            },
+            clear: function () {
+                container.html('');
+            },
+            small: function () {
+                return cardSize.small;
+            },
+            toggleSize: function () {
+                cardSize.small = !cardSize.small;
+                cardSize.scale(cardSize.small ? 50 : 100);
+                update();
+            }
+        };
+    } // End CardPanel
 
-    function showOtherButtons(show) {
-        if (show) {
-            $('#' + imageSizeButtonId).removeClass('mdw-hidden');
-            $('#' + drawCardButtonId).removeClass('mdw-hidden');
-            $('#' + clearButtonId).removeClass('mdw-hidden');
-        } else {
-            $('#' + imageSizeButtonId).addClass('mdw-hidden');
-            $('#' + drawCardButtonId).addClass('mdw-hidden');
-            $('#' + clearButtonId).addClass('mdw-hidden');
+    function Controller(xCardPanel, xDeck) {
+        var cardPanel = xCardPanel;
+        var deck = xDeck;
+
+        var randomHandButton = $('#mdw-random-hand-button');
+        var imageSizeButton = $('#mdw-random-hand-image-size');
+        var drawCardButton = $('#mdw-random-hand-draw-card');
+        var clearButton = $('#mdw-random-hand-clear');
+        var handOnlyButtons = [imageSizeButton, drawCardButton, clearButton];
+
+        function setRandomHandButtonText(haveHand) {
+            var text = haveHand ? 'New Hand' : 'Draw Sample Hand';
+            randomHandButton.html(text);
         }
-    }
 
-    function imageSizeButtonClick() {
-        cardImage.small = !cardImage.small;
-        cardImage.scale(cardImage.small ? 50 : 100);
-        setImageSizeButtonText();
-        updateCardImages();
-    }
-
-    function createCard(cardName) {
-        var link = $('<a href="' + cardArticle(cardName) + '" target="_blank"><img /></a>');
-        var img = link.find('img').attr('width', cardImage.width).attr('height', cardImage.height);
-        setCardImageEvents(img);
-        setCardImageSource(img, cardName);
-        return link;
-    }
-
-    function apiParseUrl(cardName) {
-        var url = '/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
-        url = url.replace('[[cardname]]', encodeURIComponent(cardName));
-        if (location.protocol.lastIndexOf('http', 0) === -1) {
-            // working locally in development, use absolute url
-            url = 'http://magicduels.wikia.com' + url;
+        function setImageSizeButtonText() {
+            var text = cardPanel.small() ? 'Large Images' : 'Small Images';
+            imageSizeButton.html(text);
         }
-        return url;
-    }
 
-    function setCardImageSource(img, cardName) {
-        var imageSource = cardImageSources[cardName];
-        if (imageSource !== undefined) {
-            img.attr('src', imageSource);
-            return;
+        function showHandOnlyButtons(show) {
+            if (show) {
+                handOnlyButtons.forEach(function (button) {
+                    button.removeClass('mdw-hidden');
+                });
+            } else {
+                handOnlyButtons.forEach(function (button) {
+                    button.addClass('mdw-hidden');
+                });
+            }
         }
-        var parseUrl = apiParseUrl(cardName);
-        $.getJSON(parseUrl, function (data) {
-            var text = data.parse.text['*'];
-            var sourceMatch = /src\s*=\s*"([^"]+)"/.exec(text);  
-            cardImageSources[cardName] = sourceMatch[1];
-            img.attr('src', sourceMatch[1]);
-        });
-    }
 
-    function renderRandomHand(target, hand) {
-        var cardElements = document.createDocumentFragment();
-        hand.forEach(function (card) {
-            var img = createCard(card.name);
-            cardElements.appendChild(img.get(0));
-        });
-        target.html(cardElements);
-    }
-
-    function drawCardClick() {
-        if (deck.cardsLeft === 0) {
-            alert('The deck is empty. There are no cards left to draw');
-            return;
+        function imageSizeButtonClick() {
+            cardPanel.toggleSize();
+            setImageSizeButtonText();
         }
-        var card = deck.drawCard();
-        var img = createCard(card.name);
-        var images = $('#' + randomHandResultsId).prepend(img);
-    }
 
-    function clearClick() {
-        var images = $('#' + randomHandResultsId).html('');
-        showOtherButtons(false);
-        setMainButtonText(false);
-    }
-
-    function generateRandomHand() {
-        var randomHandDiv = $('#' + randomHandResultsId);
-        if (deck.cards.length < 7) {
-            randomHandDiv.html('<p>There must be at least seven cards in a deck for a random hand.</p>');
-            return;
+        function drawCardClick() {
+            if (deck.cardsLeft === 0) {
+                alert('The deck is empty. There are no cards left to draw.');
+                return;
+            }
+            cardPanel.add(deck.drawCard());
         }
-        showOtherButtons(true);
-        deck.shuffle();
-        var hand = deck.drawCards(7);
-        renderRandomHand(randomHandDiv, hand);
-        setImageSizeButtonText();
-        setMainButtonText(true);
+
+        function clearClick() {
+            cardPanel.clear();
+            showHandOnlyButtons(false);
+            setRandomHandButtonText(false);
+        }
+
+        function randomHandClick() {
+            if (deck.cards.length < 7) {
+                alert('There must be at least seven cards in a deck for a random hand.');
+                return;
+            }
+            var hand = deck.shuffle().drawCards(7);
+            cardPanel.addAll(hand);
+            setRandomHandButtonText(true);
+            setImageSizeButtonText();
+            showHandOnlyButtons(true);
+        }
+
+        function wireButtonEvents() {
+            randomHandButton.click(randomHandClick);
+            imageSizeButton.click(imageSizeButtonClick);
+            drawCardButton.click(drawCardClick);
+            clearButton.click(clearClick);
+        }
+
+        return {
+            start: function () {
+                setRandomHandButtonText(false);
+                wireButtonEvents();
+                return this;
+            }
+        };
+    } // End: Controller
+    
+    function tooltipElement() {
+        return $('<img id="mdw-card-hover" class="mdw-card-hover" />').prependTo('body');
     }
 
-    function wireButtonEvents() {
-        $('#' + randomHandButtonId).click(generateRandomHand);
-        $('#' + imageSizeButtonId).click(imageSizeButtonClick);
-        $('#' + drawCardButtonId).click(drawCardClick);
-        $('#' + clearButtonId).click(clearClick);
-    }
-
-    function insertHoverOverImage() {
-        $('body').prepend('<img id="mdw-card-hover" class="mdw-card-hover" />');
-    }
-
+    var controller;
     $(document).ready(function () {
-        deck = new Deck();
-        deck.scrapeFromPage();
-        insertHoverOverImage();
-        setMainButtonText(false);
-        wireButtonEvents();
+        var deck = new Deck().scrapeFromPage();
+        var cardPanel = new CardPanel($('#mdw-random-hand'), tooltipElement(), new ImageSource());
+        controller = new Controller(cardPanel, deck).start();
     });
 })(jQuery);
 // End: Random Hand
