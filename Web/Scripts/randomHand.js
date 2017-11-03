@@ -1,6 +1,6 @@
 // ==========================================================================
-// Start: Random Hand
-// Implements random hand generation for deck articles
+// Start: Sample Hand
+// Implements sample hand generation for deck articles
 // Version 1.0.0
 // Author: Aspallar
 //
@@ -288,5 +288,5 @@
         controller = new Controller(cardPanel, deck).start();
     });
 })(jQuery);
-// End: Random Hand
+// End: Sample Hand
 // ==========================================================================
