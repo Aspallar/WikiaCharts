@@ -45,6 +45,7 @@
     var colorPieChartId = 'mdw-cardsbycolor-chart';
     var manaCurveChartId = 'mdw-manacurve-chart';
     var typesPieChartId = 'mdw-types-chart';
+    var meanCmcId = 'dw-mean-cmc';
 
     var dataIndex = {
         color: 0,
@@ -147,6 +148,10 @@
         return arr;
     }
 
+    function hasCardData() {
+        return document.getElementById(chartDataId) !== null;
+    }
+
     function hasColorPieChart() {
         return document.getElementById(colorPieChartId) !== null;
     }
@@ -159,9 +164,11 @@
         return document.getElementById(typesPieChartId) !== null;
     }
 
+    function HasMeanConvertedManaCost() {
+        return document.getElementById(typesPieChartId) !== null;
+    }
+
     function hasCharts() {
-        if (document.getElementById(chartDataId) === null)
-            return false;
         return hasColorPieChart() ||
             hasManaCurveChart() ||
             hasTypesPieChart();
@@ -192,6 +199,20 @@
         var dataString = document.getElementById(chartDataId).getAttribute('data-chart');
         var cardData = JSON.parse(dataString);
         return addCalculatedFieldsToData(cardData);
+    }
+
+    function meanConvertedManaCost(chartData) {
+        var cmcCardCount = 0;
+        var totalCmc = 0;
+        for (var k = 0, l = chartData.length; k < l; k++) {
+            var card = chartData[k];
+            if (!card.isLand) {
+                cmcCardCount += card.num;
+                totalCmc += card.cmc * card.num;
+            }
+        }
+        var mean = totalCmc / cmcCardCount;
+        return mean;
     }
 
     function getColorOnlyData(cardData) {
@@ -406,6 +427,11 @@
         dataCache.typesPie.colors = sliceColors;
     }
 
+    function setMeanCmc(chartData) {
+        var mean = meanConvertedManaCost(chartData).toFixed(2);
+        $('#' + meanCmcId).text(mean.toString());
+    }
+
     function drawAllCharts() {
         if (hasColorPieChart())
             drawColorPieChart();
@@ -417,6 +443,7 @@
 
     function chartLibraryLoaded() {
         var chartData = getChartData();
+        setMeanCmc(chartData);
         cacheColorPieData(chartData);
         cacheManaCurveData(chartData);
         cacheTypesPieData(chartData);
@@ -424,9 +451,12 @@
         $(window).resize(drawAllCharts);
     }
 
-    // do nothing for a page with no charts
-    if (!hasCharts())
+    if (!hasCharts()) {
+        if (HasMeanConvertedManaCost()) {
+            setMeanCmc(getChartData());
+        }
         return;
+    }
 
     $.getScript('https://www.gstatic.com/charts/loader.js', function () {
         google.charts.load('current', { 'packages': ['corechart'] });

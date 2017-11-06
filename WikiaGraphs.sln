@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{414534C1-E5D1-44A3-8D7E-F555BC2A32FC}"
 	ProjectSection(SolutionItems) = preProject
 		Web\Charts.html = Web\Charts.html
+		Web\DeckStats.html = Web\DeckStats.html
 		Web\Plotly.html = Web\Plotly.html
 		Web\RandomHand.html = Web\RandomHand.html
 	EndProjectSection
@@ -15,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{FFA81AD7-121B-4549-9539-970554547085}"
 	ProjectSection(SolutionItems) = preProject
 		Web\Scripts\charts.js = Web\Scripts\charts.js
+		Web\Scripts\deckstats.js = Web\Scripts\deckstats.js
 		Web\Scripts\randomHand.js = Web\Scripts\randomHand.js
 	EndProjectSection
 EndProject

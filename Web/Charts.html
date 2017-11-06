@@ -12,6 +12,8 @@
 </head>
 <body>
     <h1>Wikia Graphs</h1>
+    <div><span>Mean Cmc: </span><span id="mdw-mean-cmc"></span></div>
+    <hr />
     <div id="mdw-types-chart"></div>
     <hr />
     <div id="mdw-cardsbycolor-chart"></div>
@@ -39,6 +41,29 @@
             var jsonString = JSON.stringify(json, null, 4);
             $("#jsondata").html(jsonString);
         })();
+
+        function drawTestComboChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Month', 'Bolivia', 'Ecuador', 'Poodle', 'Average2'],
+              ['April', 165, 938, 614.6, 900],
+              ['May', 135, 1120, 682, 900],
+              ['June', 157, 1167, 623, 900],
+              ['July', 139, 1110, 609.4, 900],
+              ['August', 136, 691, 569.6, 900]
+            ]);
+
+            var options = {
+                title: 'Average (Mean) CMC 3.2',
+                vAxis: { title: "" },
+                hAxis: { title: "" },
+                isStacked: true,
+                seriesType: "bars",
+                series: { 3: { type: "line" } },
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('test-chart'));
+            chart.draw(data, options);
+        }
 
         function drawTestChart() {
             var stroke = "stroke-color: #000000;"
