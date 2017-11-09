@@ -9,10 +9,11 @@
             background-color: #caa660;
         }
     </style>
+    <link rel="stylesheet" href="css\common.css">
 </head>
 <body>
     <h1>Wikia Graphs</h1>
-    <div><span>Mean Cmc: </span><span id="mdw-mean-cmc"></span></div>
+    <!--<div><span>Mean Cmc: </span><span id="mdw-mean-cmc"></span></div>
     <hr />
     <div id="mdw-types-chart"></div>
     <hr />
@@ -20,12 +21,73 @@
     <hr />
     <div id="mdw-manacurve-chart"></div>
     <hr />
-    <div id="test-chart"></div>
+    <div id="test-chart"></div>-->
     <div id="mdw-chartdata-5" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:4}]"></div>
     <div id="mdw-chartdata-4" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2}]"></div>
     <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Green&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;,&quot;Creature&quot;],&quot;num&quot;:3,&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Green&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;White&quot;,&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Green&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Black&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Green&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Black&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;cmc&quot;:10},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:3,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
     <div id="mdw-chartdata-2" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:2,&quot;cmc&quot;:3},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:13,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
     <div id="mdw-chartdata-1" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Blue&quot;],&quot;cmc&quot;:5},&#123;&quot;types&quot;:&#91;&quot;Planeswalker&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:6},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:8},&#123;&quot;num&quot;:7,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:9,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:1,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
+    <hr />
+
+    <div class="mdw-chart-container">
+        <div class="mdw-chart-box-small-left">
+            <div class="mdw-chart-header">
+                <span>Mana Curve</span>
+            </div>
+            <div id="mdw-manacurve-chart">{{NoChartsText}}</div>
+        </div>
+        <div class="mdw-chart-box-small-right">
+            <div class="mdw-chart-header">
+                <span>Color Distribution </span>
+                <span class="mdw-charts-more-button mdw-button" style="position:absolute; right: 15px; line-height:80%;">More...</span>
+            </div>
+            <div id="mdw-cardsbycolor-chart">{{NoChartsText}}</div>
+        </div>
+        <div id="mdw-misc-stats-contents" class="mdw-chart-box-small-right" style="display:none">
+            <div class="mdw-chart-header">
+                <span>Miscellaneous </span>
+                <span class="mdw-charts-more-button mdw-button" style="position:absolute; right:15px; line-height:80%;">Back</span>
+            </div>
+            <div style="padding: 10px">
+                <div>
+                    <span>Average CMC: </span>
+                    <span id="mdw-mean-cmc" style="font-weight: bold;"></span>
+                </div>
+                <div style="margin-top:20px;">Probability of exactly n lands in starting hand.</div>
+                <table class="mdw-table">
+                    <tr>
+                        <th>Lands (n)</th>
+                        <th>0</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                    </tr>
+                    <tr id="mdw-land-probabilities">
+                        <td>Probability (%)</td>
+                        <td>[0]</td>
+                        <td>[1]</td>
+                        <td>[2]</td>
+                        <td>[3]</td>
+                        <td>[4]</td>
+                        <td>[5]</td>
+                        <td>[6]</td>
+                        <td>[7]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{Clear}}
+    <div class="mdw-chart-box">
+        <div class="mdw-chart-header">
+            Card Type Distribution
+        </div>
+        <div id="mdw-types-chart">{{NoChartsText}}</div>
+    </div>
     <hr />
     <textarea id="jsondata" cols="40" rows="30"></textarea>
 
@@ -80,7 +142,7 @@
             var options = {
                 title: 'Population (in millions)',
                 isStacked: true,
-                colors: ['red','white'],
+                colors: ['red', 'white'],
             };
 
             // Instantiate and draw the chart.

@@ -1,7 +1,7 @@
 // ==========================================================================
 // Start: Deck Charts
 // Renders charts on deck articles
-// Version 1.0.0
+// Version 1.1.0
 // Author: Aspallar
 //
 // ** Please dont edit this code directly in the wikia.
@@ -45,7 +45,8 @@
     var colorPieChartId = 'mdw-cardsbycolor-chart';
     var manaCurveChartId = 'mdw-manacurve-chart';
     var typesPieChartId = 'mdw-types-chart';
-    var meanCmcId = 'dw-mean-cmc';
+    var meanCmcId = 'mdw-mean-cmc';
+    var landProbabilitiesId = 'mdw-land-probabilities';
 
     var dataIndex = {
         color: 0,
@@ -140,14 +141,6 @@
         chart.draw(dataCache.typesPie.data, options);
     }
 
-
-    function zeroedArray(size) {
-        var arr = [];
-        for (var k = 0; k < size; k++)
-            arr.push(0);
-        return arr;
-    }
-
     function hasCardData() {
         return document.getElementById(chartDataId) !== null;
     }
@@ -164,14 +157,33 @@
         return document.getElementById(typesPieChartId) !== null;
     }
 
-    function HasMeanConvertedManaCost() {
-        return document.getElementById(typesPieChartId) !== null;
+    function hasMeanConvertedManaCost() {
+        return document.getElementById(meanCmcId) !== null;
+    }
+
+    function hasLandProbabilities() {
+        return document.getElementById(landProbabilitiesId) !== null;
     }
 
     function hasCharts() {
         return hasColorPieChart() ||
             hasManaCurveChart() ||
             hasTypesPieChart();
+    }
+
+    var statistics = {
+        // n choose k
+        nck: function (n, k) {
+            var result = 1;
+            for (var kcount = 1; kcount <= k; kcount++) {
+                result *= (n + 1 - kcount) / kcount;
+            }
+            return result;
+        },
+        // probability mass function, hypergeometric distribution 
+        pmf: function (N, m, n, k) {
+            return (this.nck(m, k) * this.nck(N - m, n - k)) / this.nck(N, n);
+        }
     }
 
     function isLand(card) {
@@ -199,6 +211,36 @@
         var dataString = document.getElementById(chartDataId).getAttribute('data-chart');
         var cardData = JSON.parse(dataString);
         return addCalculatedFieldsToData(cardData);
+    }
+
+    function zeroedArray(size) {
+        var arr = [];
+        for (var k = 0; k < size; k++)
+            arr.push(0);
+        return arr;
+    }
+
+    function getCardTotals(cardData) {
+        var totals = {
+            cards: 0,
+            lands: 0
+        };
+        for (var k = 0, l = cardData.length; k < l; k++) {
+            var card = cardData[k];
+            totals.cards += card.num;
+            if (card.isLand)
+                totals.lands += card.num;
+        }
+        return totals;
+    }
+
+    function landProbabilities(cardTotals) {
+        var result = [];
+        for (var landCount = 0; landCount <= 7; landCount++) {
+            var probability = statistics.pmf(cardTotals.cards, cardTotals.lands, 7, landCount);
+            result.push(probability);
+        }
+        return result;
     }
 
     function meanConvertedManaCost(chartData) {
@@ -330,7 +372,7 @@
         data[numSeries][labelIndex] += '+';
     }
 
-    function fillDataForManaCurve(data, chartData) {
+    function fillDataForManaCurve(data, chartData, maxCmc) {
         var index = 1;
         var color = chartData[0][dataIndex.color];
         chartData.forEach(function (chartDataRow) {
@@ -338,7 +380,7 @@
                 ++index;
                 color = chartDataRow[dataIndex.color];
             }
-            var cmc = Math.min(chartDataRow[dataIndex.cmc], 6);
+            var cmc = Math.min(chartDataRow[dataIndex.cmc], maxCmc);
             data[cmc + 1][index] += chartDataRow[dataIndex.num];
         });
     }
@@ -370,7 +412,7 @@
         var labels = makeLabelsForManaCurve(chartData);
         var data = [labels];
         addZeroedDataSeriesForManaCurve(data, lastCmc, labels.length);
-        fillDataForManaCurve(data, chartData);
+        fillDataForManaCurve(data, chartData, lastCmc - 1);
         var maxColumnTotal = nullZeroValuesInData(data, lastCmc);
         getManaCurveAxisTicks(ticks, maxColumnTotal);
         return data;
@@ -429,7 +471,18 @@
 
     function setMeanCmc(chartData) {
         var mean = meanConvertedManaCost(chartData).toFixed(2);
-        $('#' + meanCmcId).text(mean.toString());
+        $('#' + meanCmcId).text(mean);
+    }
+
+    function setLandDrawProbabilities(chartData) {
+        var probabilities = landProbabilities(getCardTotals(chartData));
+        var landElement = $('#' + landProbabilitiesId);
+        var html = landElement.html();
+        for (var k = 0; k <= 7; k++) {
+            var percent = (probabilities[k] * 100).toFixed(1);
+            html = html.replace('[' + k + ']', percent);
+        }
+        landElement.html(html);
     }
 
     function drawAllCharts() {
@@ -441,20 +494,36 @@
             drawTypesPieChart();
     }
 
+    function setAllNonChartSections(chartData) {
+        if (hasMeanConvertedManaCost())
+            setMeanCmc(chartData);
+        if (hasLandProbabilities())
+            setLandDrawProbabilities(chartData);
+    }
+
+    function wireEvents() {
+        $('.mdw-charts-more-button').click(function () {
+            $('#mdw-misc-stats-contents').toggle(500);
+        });
+        $(window).resize(drawAllCharts);
+    }
+
     function chartLibraryLoaded() {
         var chartData = getChartData();
-        setMeanCmc(chartData);
         cacheColorPieData(chartData);
         cacheManaCurveData(chartData);
         cacheTypesPieData(chartData);
         drawAllCharts();
-        $(window).resize(drawAllCharts);
+        setAllNonChartSections(chartData);
+        wireEvents();
     }
 
+    // do nothing on pages with no {{Deck}}
+    if (!hasCardData())
+        return;
+
     if (!hasCharts()) {
-        if (HasMeanConvertedManaCost()) {
-            setMeanCmc(getChartData());
-        }
+        setAllNonChartSections(getChartData());
         return;
     }
 

@@ -19,6 +19,7 @@
         return (nck(m, k) * nck(N - m, n - k)) / nck(N, n);
     }
 
+
     function isLand(card) {
         return $.inArray('Land', card.types) !== -1;
     }

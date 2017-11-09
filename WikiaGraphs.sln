@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{414534C1-E5D
 	ProjectSection(SolutionItems) = preProject
 		Web\Charts.html = Web\Charts.html
 		Web\DeckStats.html = Web\DeckStats.html
+		Web\flips.html = Web\flips.html
 		Web\Plotly.html = Web\Plotly.html
 		Web\RandomHand.html = Web\RandomHand.html
 	EndProjectSection
