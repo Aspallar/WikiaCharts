@@ -94,7 +94,7 @@
         function apiParseCommandUrl(cardName) {
             var url = '/api.php?format=json&action=parse&disablepp=true&prop=text&text=%5B%5BFile%3A[[cardname]].png%7Csize%3D160px%7Clink%3D%5D%5D';
             url = url.replace('[[cardname]]', encodeURIComponent(cardName));
-            if (location.protocol.lastIndexOf('http', 0) === -1) {
+            if (location.hostname === "localhost") {
                 // working locally in development, use absolute url
                 url = 'http://magicduels.wikia.com' + url;
             }

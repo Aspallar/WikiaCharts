@@ -44,23 +44,18 @@
         </p>
         <div id="mdw-chartdata" style="display:none" data-chart="&#91;&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;White&quot;,&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;White&quot;,&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Creature&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:1},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:3,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Instant&quot;],&quot;num&quot;:4,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Sorcery&quot;],&quot;num&quot;:2,&quot;colors&quot;:&#91;&quot;Red&quot;],&quot;cmc&quot;:3},&#123;&quot;types&quot;:&#91;&quot;Enchantment&quot;],&quot;num&quot;:1,&quot;colors&quot;:&#91;&quot;White&quot;],&quot;cmc&quot;:4},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:4,&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:2,&quot;cmc&quot;:2},&#123;&quot;types&quot;:&#91;&quot;Artifact&quot;],&quot;num&quot;:2,&quot;cmc&quot;:2},&#123;&quot;num&quot;:5,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:6,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:2,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:3,&quot;types&quot;:&#91;&quot;Land&quot;]},&#123;&quot;num&quot;:4,&quot;types&quot;:&#91;&quot;Land&quot;]}]"></div>
     </div>
-    <hr />
-    <span id="mdw-random-hand-button" class="mdw-button"></span>
-    &nbsp;
-    <span id="mdw-random-hand-image-size" class="mdw-hidden mdw-button"></span>
-    &nbsp;
-    <span id="mdw-random-hand-draw-card" class="mdw-hidden mdw-button">Draw Card</span>
-    &nbsp;
-    <span id="mdw-random-hand-clear" class="mdw-hidden mdw-button">Clear</span>
-    <div id="results">
-    </div>
-    <hr />
-    <div id="mdw-random-hand">
-    </div>
+    <br />
+    <div id="samplehand-template"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous">
     </script>
-    <script src="scripts/randomHand.js"></script>
+    <script>
+        $.get('Templates/SampleHand.html', function (data) {
+            var contents = data.replace(/{{Clear}}/g, '<div style="clear:both;"></div>');
+            $('#samplehand-template').html(contents);
+            $.getScript('scripts/sampleHand.js');
+        });
+    </script>
 </body>
 </html>
