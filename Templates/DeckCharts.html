@@ -1,27 +1,27 @@
 <includeonly>
     <div class="mdw-chart-container">
-        <div class="mdw-chart-box-small-left">
+        <div class="mdw-chart-box mdw-chart-box-small">
             <div class="mdw-chart-header">
-                <span>Mana Curve</span>
+                Mana Curve
             </div>
             <div id="mdw-manacurve-chart">{{NoChartsText}}</div>
         </div>
-        <div class="mdw-chart-box-small-right">
+        <div class="mdw-chart-box mdw-chart-box-small mdw-chart-box-right">
             <div class="mdw-chart-header">
-                <span>Color Distribution </span>
-                <span class="mdw-charts-more-button mdw-button" style="position:absolute; right: 15px; line-height:80%;">More...</span>
+                Color Distribution
+                <span class="mdw-charts-more-button mdw-button mdw-chart-box-button">More...</span>
             </div>
             <div id="mdw-cardsbycolor-chart">{{NoChartsText}}</div>
         </div>
-        <div id="mdw-misc-stats-contents" class="mdw-chart-box-small-right" style="display:none">
+        <div id="mdw-misc-stats-contents" class="mdw-chart-box mdw-chart-box-small mdw-chart-box-right" style="display:none">
             <div class="mdw-chart-header">
-                <span>Miscellaneous </span>
-                <span class="mdw-charts-more-button mdw-button" style="position:absolute; right:15px; line-height:80%;">Back</span>
+                Miscellaneous
+                <span class="mdw-charts-more-button mdw-button mdw-chart-box-button">Back</span>
             </div>
-            <div style="padding: 10px">
+            <div class="mdw-chart-box-padding">
                 <div>
-                    <span>Average CMC: </span>
-                    <span id="mdw-mean-cmc" style="font-weight: bold;"></span>
+                    Average [[Mana|CMC]]:
+                    <span id="mdw-mean-cmc" class="mdw-highlight"></span>
                 </div>
                 <div style="margin-top:20px;">Probability of exactly n lands in starting hand.</div>
                 <table class="mdw-table">
@@ -57,6 +57,7 @@
             Card Type Distribution
         </div>
         <div id="mdw-types-chart">{{NoChartsText}}</div>
-    </div>    {{Clear}}
+    </div>
+    {{Clear}}
 </includeonly>
 <noinclude>{{documentation}}[[Category:Data templates]]</noinclude>

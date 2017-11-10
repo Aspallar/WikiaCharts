@@ -63,33 +63,20 @@
 
 /* ========================================= */
 
-.mdw-chart-container {
-    height:290px;
-    padding-right:0;
+.mdw-highlight {
+    font-weight: bold;
 }
 
-.mdw-chart-box-small-left {
-    width: 47%;
-    float: left;
-    height: 260px;
-    border: solid 1px;
-    border-radius: 10px;
-    margin: 10px 0 0 10px;
-    box-shadow: 0 0 10px #808080;
-    background-color: #e6e6e6;
-}
-
-.mdw-chart-box-small-right {
-    width: 47%;
-    float: left;
-    height: 260px;
-    border: solid 1px;
-    border-radius: 10px;
-    margin: 10px 10px 0 10px;
-    box-shadow: 0 0 10px #808080;
-    background-color: #e6e6e6;
+.mdw-chart-box-button {
     position: absolute;
-    right: 0;
+    right: 15px;
+    line-height: 80%;
+}
+
+.mdw-chart-container {
+    height:275px;
+    padding-right:0;
+    margin-top: 15px;
 }
 
 .mdw-chart-box {
@@ -100,13 +87,27 @@
     background-color: #e6e6e6;
 }
 
+.mdw-chart-box-small {
+    width: 47%;
+    float: left;
+    height: 260px;
+}
+
+.mdw-chart-box-right {
+    position: absolute;
+    right: 0;
+}
+
+.mdw-chart-box-padding {
+    padding: 10px;
+}
+
 .mdw-chart-header {
     padding-left: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
     background: white;
     text-align: left;
-    font-family: "Courier New", Courier, monospace;
 }
 
 .mdw-link {
