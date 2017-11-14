@@ -105,11 +105,12 @@
 .mdw-chart-header {
     padding-left: 30px;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
     background: white;
     text-align: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
-
 .mdw-link {
      cursor: pointer;
      color: blue;
