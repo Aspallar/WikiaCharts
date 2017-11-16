@@ -29,43 +29,22 @@
             crossorigin="anonymous">
     </script>
     <script>
-
         (function () {
             var dataString = $("#mdw-chartdata").attr("data-chart");
             var json = JSON.parse(dataString);
             var jsonString = JSON.stringify(json, null, 4);
             $("#jsondata").html(jsonString);
         })();
-
-        function drawTestComboChart() {
-            var data = google.visualization.arrayToDataTable([
-              ['Month', 'Bolivia', 'Ecuador', 'Poodle', 'Average2'],
-              ['April', 165, 938, 614.6, 900],
-              ['May', 135, 1120, 682, 900],
-              ['June', 157, 1167, 623, 900],
-              ['July', 139, 1110, 609.4, 900],
-              ['August', 136, 691, 569.6, 900]
-            ]);
-
-            var options = {
-                //title: 'Average (Mean) CMC 3.2',
-                vAxis: { title: "" },
-                hAxis: { title: "" },
-                isStacked: true,
-                seriesType: "bars",
-                series: { 3: { type: "line" } },
-            };
-
-            var chart = new google.visualization.ComboChart(document.getElementById('test-chart'));
-            chart.draw(data, options);
-        }
     </script>
+    <script src="scripts/wikiParse.js"></script>
     <script>
-        $.get('Templates/DeckCharts.html', function (data) {
-            var contents = data.replace(/{{Clear}}/g, '<div style="clear:both;"></div>');
-            $('#deckcharts-template').html(contents);
-            $.getScript('scripts/charts.js');
-        });
+        (function () {
+            'use strict';
+            $.get('Templates/DeckCharts.html', function (data) {
+                $('#deckcharts-template').html(wikiParse(data));
+                $.getScript('scripts/charts.js');
+            });
+        })();
     </script>
 </body>
 </html>

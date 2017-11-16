@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{FFA8
 	ProjectSection(SolutionItems) = preProject
 		Web\Scripts\charts.js = Web\Scripts\charts.js
 		Web\Scripts\sampleHand.js = Web\Scripts\sampleHand.js
+		Web\Scripts\wikiParse.js = Web\Scripts\wikiParse.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{584ED3C2-EFB2-4E0F-987D-F7ABF14BA14C}"

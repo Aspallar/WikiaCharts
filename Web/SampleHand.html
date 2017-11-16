@@ -50,10 +50,10 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous">
     </script>
+    <script src="scripts\wikiParse.js"></script>
     <script>
         $.get('Templates/SampleHand.html', function (data) {
-            var contents = data.replace(/{{Clear}}/g, '<div style="clear:both;"></div>');
-            $('#samplehand-template').html(contents);
+            $('#samplehand-template').html(wikiParse(data));
             $.getScript('scripts/sampleHand.js');
         });
     </script>
